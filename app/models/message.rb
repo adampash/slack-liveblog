@@ -1,4 +1,6 @@
 class Message < ActiveRecord::Base
+  after_create :purge_all
+  after_save :purge
   belongs_to :live_blog
   belongs_to :user
 
