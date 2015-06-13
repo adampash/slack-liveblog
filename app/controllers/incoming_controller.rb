@@ -23,9 +23,9 @@ class IncomingController < ApplicationController
         render text: "Ended the live blog for #{live_blog.name}"
       end
     when ENV["SLACK_OUTGOING_TOKEN"]
-      puts "deal with new message"
       live_blog = LiveBlog.active(params[:channel_id])
       unless live_blog.nil?
+        puts "deal with new message"
         Message.create_from_params(params, live_blog.id)
       end
     else

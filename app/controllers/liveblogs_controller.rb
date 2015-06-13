@@ -1,0 +1,2 @@
+class LiveblogsController < ApplicationController
+end
