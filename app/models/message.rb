@@ -33,6 +33,7 @@ class Message < ActiveRecord::Base
       live_blog_id: live_blog_id,
       cursor: live_blog.messages.count,
     )
+    live_blog.purge
   end
 
   def self.create_file(message_id, timestamp)
@@ -54,6 +55,7 @@ class Message < ActiveRecord::Base
         user = User.find_or_create_by_slack_id(data["user"])
         message.user = user
       end
+      message.live_blog.purge
       message.save
     end
   end
