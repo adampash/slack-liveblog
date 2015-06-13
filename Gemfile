@@ -27,6 +27,8 @@ gem "fastly-rails"
 gem 'breakpoint'
 gem 'kinja'
 gem 'sidekiq'
+gem 'puma'
+gem 'slack-api'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

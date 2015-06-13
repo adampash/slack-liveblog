@@ -22,7 +22,7 @@ class IncomingController < ApplicationController
       else
         render text: "Ended the live blog for #{live_blog.name}"
       end
-    when ENV["SLACK_TOKEN"]
+    when ENV["SLACK_OUTGOING_TOKEN"]
       puts "deal with new message"
       live_blog = LiveBlog.active(params[:channel_id])
       unless live_blog.nil?
@@ -30,9 +30,6 @@ class IncomingController < ApplicationController
       end
     else
       puts "deal with no message"
-      puts params[:token] == ENV["SLACK_TOKEN"]
-      puts params[:token]
-      puts ENV["SLACK_TOKEN"]
       render status: 500
     end
   end
