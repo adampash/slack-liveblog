@@ -1,0 +1,94 @@
+@import "kinja_fonts";
+
+.liveblog {
+  h3 {
+    font-family: ProximaNovaCond;
+  }
+}
+.messages {
+  max-width: 636px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .message {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    margin-top: 15px;
+    .avatar {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      img {
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
+    .alt.timestamp {
+      line-height: 22px;
+      display: none;
+      font-family: ProximaNovaCond;
+      text-align: right;
+      width: 100%;
+    }
+    .timestamp {
+      color: #777;
+      font-size: 14px;
+    }
+    .content {
+      flex: 1 0 0;
+      .user_and_time {
+        display: flex;
+        flex-direction: row;
+        font-family: ProximaNovaCond;
+        .username {
+          font-weight: bold;
+          font-size: 16px;
+          margin-right: 10px;
+        }
+      }
+      .text {
+        line-height: 22px;
+        font-family: Georgia;
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+    &.hide {
+      margin-top: 10px;
+      .avatar {
+        height: 20px;
+      }
+      .avatar img {
+        display: none;
+      }
+      .user_and_time {
+        display: none;
+      }
+      .alt.timestamp {
+        display: inline-block;
+      }
+    }
+  }
+  button {
+    font-family: ProximaNovaCond;
+    padding: 13px 0 10px;
+    background: #FBC000;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background: rgba(251, 192, 0, 0.8);
+    }
+  }
+  .loading {
+    text-align: center;
+    font-size: 22px;
+  }
+}

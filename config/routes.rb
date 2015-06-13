@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :messages
   post 'incoming' => 'incoming#handle'
   get 'latest/:id' => 'live_blogs#latest'
+  get '/live_blogs/:id/cursor' => 'live_blogs#cursor'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

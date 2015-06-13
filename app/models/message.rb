@@ -22,12 +22,14 @@ class Message < ActiveRecord::Base
 
   def self.create_message(options, live_blog_id)
     user = User.find_or_create(options)
+    live_blog = LiveBlog.find live_blog_id
 
     create(
       text: options[:text],
       user_id: user.id,
       timestamp: DateTime.strptime(options[:timestamp],'%s'),
       live_blog_id: live_blog_id,
+      cursor: live_blog.messages.count,
     )
   end
 
