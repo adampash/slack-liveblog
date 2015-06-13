@@ -23,15 +23,31 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_or_create_by_slack_id(slack_id)
+    user = find_by(slack_id: slack_id)
+    if user.nil?
+      user = create(
+        slack_id: slack_id,
+      )
+      fetch_user(user.id)
+    end
+    user
+  end
+
   def self.fetch_user(user_id)
     user = find(user_id)
     puts "need to fetch stuff for this user: #{user.name}"
     response = SlackClient.users_info user: user.slack_id
     profile = response["user"]["profile"]
     user.real_name = profile["real_name"]
+    user.name = response["user"]["name"]
     avatar_url = profile["image_192"]
     user.get_avatar_from_url(avatar_url)
     user.save
+  end
+
+  def display_name
+    real_name or name
   end
 
   def get_avatar_from_url(url)

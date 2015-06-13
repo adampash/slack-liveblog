@@ -4,7 +4,6 @@ class Message < ActiveRecord::Base
 
   has_attached_file :attachment,
     :styles => { :large => "800x800>", :thumb => "100x100>" },
-    :default_url => "/images/:style/missing.png",
     :storage => :s3,
     :path => 'liveblog/messages/files/:id/:style/:filename',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
@@ -47,6 +46,9 @@ class Message < ActiveRecord::Base
         url = data["file"]["url_download"]
         message.attachment = get_file_from_url(url)
         message.attachment.instance_write :file_name, data["file"]["title"]
+
+        user = User.find_or_create_by_slack_id(data["user"])
+        message.user = user
       end
       message.save
     end

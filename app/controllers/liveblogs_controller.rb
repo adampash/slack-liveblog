@@ -1,2 +1,0 @@
-class LiveblogsController < ApplicationController
-end
