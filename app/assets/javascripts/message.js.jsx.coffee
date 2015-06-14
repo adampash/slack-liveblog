@@ -9,7 +9,7 @@
       payload = @props.data.text
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
-    if @props.data.user.name is @props.prevUser
+    if @props.hide
       hideAble = "hide"
     else
       hideAble = ""

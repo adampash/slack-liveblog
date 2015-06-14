@@ -67,14 +67,23 @@
           loading: false
 
   render: ->
+    prevHidden = 0
     messages = @state.messages.map (message, index) =>
       if index is 0
         prevUser = null
       else
         prevUser = @state.messages[index-1].user.name
+        if prevUser == message.user.name
+          hide = true
+          prevHidden++
+          if prevHidden > 6
+            hide = false
+            prevHidden = 0
+        else
+          prevHidden = 0
       `<Message data={message}
         key={message.id}
-        prevUser={prevUser}
+        hide={hide}
       />`
 
     if @state.cursor? and @state.cursor != 0
