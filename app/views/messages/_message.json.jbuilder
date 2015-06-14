@@ -1,5 +1,5 @@
 json.id message.id
-json.text message.text.emojify
+json.text message.text
 json.cursor message.cursor
 json.user do
   json.partial! 'users/user', user: message.user

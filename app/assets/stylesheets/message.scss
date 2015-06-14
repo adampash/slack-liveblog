@@ -32,7 +32,7 @@ body {
       }
     }
     .alt.timestamp {
-      line-height: 22px;
+      line-height: 25px;
       display: none;
       font-family: ProximaNovaCond;
       text-align: right;
@@ -61,6 +61,9 @@ body {
         img {
           max-width: 100%;
           margin-top: 10px;
+          &.emoji {
+            margin: 0;
+          }
         }
       }
     }
@@ -100,4 +103,10 @@ body {
     text-align: center;
     font-size: 22px;
   }
+}
+
+.emoji {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
 }

@@ -1,12 +1,14 @@
 @Message = React.createClass
   formatTimestamp: ->
     moment(@props.data.timestamp).format("h:mm A")
+
   render: ->
     timestamp = @formatTimestamp()
     if @props.data.attachment?
       payload = `<img src={this.props.data.attachment} />`
     else
-      payload = `<div dangerouslySetInnerHTML={{__html: this.props.data.text}} />`
+      text = @processText(@props.data.text)
+      payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
     if @props.hide
@@ -35,3 +37,7 @@
           </div>
         </div>
       </div>`
+
+  processText: (text) ->
+    text = Unfurl.all(text)
+    text
