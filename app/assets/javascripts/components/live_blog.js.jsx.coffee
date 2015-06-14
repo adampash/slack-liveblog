@@ -7,6 +7,7 @@
   timer: null
 
   resize: ->
+    console.log "resize to #{height}"
     height = $('body').height()
     window.top.postMessage(
       JSON.stringify(
@@ -20,6 +21,7 @@
   componentDidMount: ->
     @getLatest()
     @timer = setInterval @getLatest, 2000 # every 2 seconds
+    setTimeout @resize, 1000
 
   componentWillUnmount: ->
     clearInterval @timer
