@@ -6,6 +6,17 @@
 
   timer: null
 
+  resize: ->
+    height = $('body').height()
+    window.top.postMessage(
+      JSON.stringify(
+        kinja:
+          sourceUrl: window.location.href
+          resizeFrame:
+            height: height
+      ), '*'
+    )
+
   componentDidMount: ->
     @getLatest()
     @timer = setInterval @getLatest, 2000 # every 2 seconds
@@ -26,6 +37,7 @@
         if old_messages.length is 0
           state["cursor"] = messages[-1..-1][0].cursor
         @setState state
+        setTimeout @resize, 100
       error: (e) =>
         console.warn "ERROR"
         @
@@ -45,6 +57,7 @@
           messages: messages
           cursor: messages[-1..-1][0].cursor
         @setState state
+        setTimeout @resize, 100
       error: (e) =>
         debugger
       complete: =>
