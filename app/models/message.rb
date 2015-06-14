@@ -19,7 +19,7 @@ class Message < ActiveRecord::Base
     if options[:text].nil?
       puts "need to fetch file"
       puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
-      delay.create_file(message.id, options[:timestamp])
+      create_file(message.id, options[:timestamp])
     end
     puts "created message"
     message
@@ -40,6 +40,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.create_file(message_id, timestamp)
+    puts "creating file!"
     message = find(message_id)
     response = SlackClient.channels_history(
       channel: message.live_blog.channel_id,
