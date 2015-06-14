@@ -1,8 +1,8 @@
 require 'slack_client'
 
 class Message < ActiveRecord::Base
-  after_create :purge_all
-  after_save :purge
+  # after_create :purge_all
+  # after_save :purge
   belongs_to :live_blog
   belongs_to :user
 
@@ -19,9 +19,8 @@ class Message < ActiveRecord::Base
     if options[:text].nil?
       # puts "need to fetch file"
       puts options
-      puts "wtf"
       # puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
-      self.create_file(message.id, options[:timestamp])
+      self.delay.create_file(message.id, options[:timestamp])
     end
     puts "created message"
     message
