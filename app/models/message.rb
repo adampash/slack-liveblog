@@ -1,8 +1,8 @@
 require 'slack_client'
 
 class Message < ActiveRecord::Base
-  # after_create :purge_all
-  # after_save :purge
+  after_create :purge_all
+  after_save :purge
   belongs_to :live_blog
   belongs_to :user
 
@@ -17,10 +17,9 @@ class Message < ActiveRecord::Base
   def self.create_from_params(options, live_blog_id)
     message = create_message(options, live_blog_id)
     if options[:text].nil?
-      # puts "need to fetch file"
-      puts options
-      # puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
-      self.delay.create_file(message.id, options[:timestamp])
+      puts "need to fetch file"
+      puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
+      delay.create_file(message.id, options[:timestamp])
     end
     puts "created message"
     message
@@ -29,6 +28,7 @@ class Message < ActiveRecord::Base
   def self.create_message(options, live_blog_id)
     user = User.find_or_create(options)
     live_blog = LiveBlog.find live_blog_id
+    live_blog.purge
 
     create(
       text: options[:text],
@@ -37,11 +37,9 @@ class Message < ActiveRecord::Base
       live_blog_id: live_blog_id,
       cursor: live_blog.messages.count,
     )
-    live_blog.purge
   end
 
   def self.create_file(message_id, timestamp)
-    puts "creating file!"
     message = find(message_id)
     response = SlackClient.channels_history(
       channel: message.live_blog.channel_id,
