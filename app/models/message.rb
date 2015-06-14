@@ -5,6 +5,7 @@ class Message < ActiveRecord::Base
   after_save :purge
   belongs_to :live_blog
   belongs_to :user
+  has_one :embed
 
   has_attached_file :attachment,
     :styles => { :large => "800x800>", :thumb => "100x100>" },
@@ -16,10 +17,11 @@ class Message < ActiveRecord::Base
 
   def self.create_from_params(options, live_blog_id)
     message = create_message(options, live_blog_id)
-    if options[:text].nil?
+    if message.text.nil?
       puts "need to fetch file"
-      puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
       delay.create_file(message.id, options[:timestamp])
+    elsif has_link(message.text)
+      Embed.delay.create_from_message(message.id)
     end
     puts "created message"
     message
@@ -30,14 +32,27 @@ class Message < ActiveRecord::Base
     live_blog = LiveBlog.find live_blog_id
     live_blog.purge
 
+    text = options[:text]
+
     create(
       text: options[:text],
       user_id: user.id,
       timestamp: DateTime.strptime(options[:timestamp],'%s'),
       live_blog_id: live_blog_id,
       cursor: live_blog.messages.count,
+      processed: pre_processed?(text),
     )
   end
+
+  def self.pre_processed?(text)
+    !text.nil? and !has_link(text)
+  end
+
+  def self.has_link(text)
+    linkRe = /<(.+\|?.*)>/
+    !text.match(linkRe).nil?
+  end
+
 
   def self.create_file(message_id, timestamp)
     message = find(message_id)
@@ -57,8 +72,9 @@ class Message < ActiveRecord::Base
 
         user = User.find_or_create_by_slack_id(data["user"])
         message.user = user
+        message.processed = true
       else
-        pusts "something went wrong"
+        puts "something went wrong"
       end
       message.live_blog.purge
       message.save

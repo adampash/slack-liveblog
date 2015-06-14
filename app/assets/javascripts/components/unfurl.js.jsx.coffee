@@ -26,6 +26,7 @@ fluidvids.init
     link =
       url: link_match[2]
       text: link_match[3]
+    @text = @text.replace(@linkRe, "<a href=\"#{link.url}\" target=\"_blank\">#{link.text or link.url}</a>")
 
   emojify: ->
     emoji.init_env()

@@ -53,6 +53,10 @@ body {
       .text {
         line-height: 22px;
         font-family: Georgia;
+        a {
+          color: rgb(203, 84, 84);
+          text-decoration: none;
+        }
         img {
           max-width: 100%;
           margin-top: 10px;

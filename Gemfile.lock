@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.0)
     asset_sync (1.1.0)
       activemodel
@@ -257,6 +258,9 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    opengraph_parser (0.2.3)
+      addressable
+      nokogiri
     paperclip (4.2.2)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -413,6 +417,7 @@ DEPENDENCIES
   jquery-rails
   kinja
   momentjs-rails
+  opengraph_parser
   paperclip (~> 4.2)
   pg
   pry

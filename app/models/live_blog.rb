@@ -26,11 +26,11 @@ class LiveBlog < ActiveRecord::Base
   end
 
   def latest_messages(count)
-    messages.order('timestamp DESC').limit(count)
+    messages.order('timestamp DESC').limit(count).where(processed: true)
   end
 
   def from_cursor(cursor)
-    messages.where('cursor < ?', cursor).order('cursor DESC').limit(40)
+    messages.where('cursor < ?', cursor).order('cursor DESC').limit(40).where(processed: true)
   end
 
 end
