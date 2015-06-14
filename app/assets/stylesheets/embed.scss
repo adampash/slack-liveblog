@@ -1,8 +1,7 @@
 @import "flexbox";
 @import "kinja_fonts";
 @import "breakpoint";
-
-$mobile: 500px;
+@import "breakpoints";
 
 .embed {
   @include flexbox;

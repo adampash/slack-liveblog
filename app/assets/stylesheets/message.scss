@@ -1,6 +1,7 @@
 @import "flexbox";
 @import "kinja_fonts";
 @import "breakpoint";
+@import "breakpoints";
 
 body {
   margin: 0;
@@ -22,6 +23,9 @@ body {
       height: 40px;
       margin-right: 15px;
       margin-bottom: 10px;
+      @include breakpoint(max-width $mobile) {
+        margin-right: 10px;
+      }
       img {
         width: 100%;
         border-radius: 4px;
