@@ -37,7 +37,7 @@ Rails.application.configure do
   config.assets.enabled = true
   config.assets.initialize_on_precompile
 
-  config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
+  config.action_controller.asset_host = "//gawker-labs.com/#{ENV['FOG_DIRECTORY']}"
   # store assets in a 'folder' instead of bucket root
   config.assets.prefix = "/liveblog/assets"
 
