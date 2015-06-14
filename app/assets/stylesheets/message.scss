@@ -1,6 +1,10 @@
 @import "flexbox";
 @import "kinja_fonts";
 
+body {
+  margin: 0;
+  padding: 0;
+}
 .liveblog {
   h3 {
     font-family: ProximaNovaCond;
