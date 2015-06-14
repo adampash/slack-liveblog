@@ -25,8 +25,8 @@ class LiveBlog < ActiveRecord::Base
     find_by(channel_id: channel_id, live: true)
   end
 
-  def latest_messages
-    messages.order('timestamp DESC').limit(10)
+  def latest_messages(count)
+    messages.order('timestamp DESC').limit(count)
   end
 
   def from_cursor(cursor)

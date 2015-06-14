@@ -9,7 +9,7 @@ class LiveBlogsController < ApplicationController
 
   def latest
     live_blog = LiveBlog.find params[:id]
-    @messages = live_blog.latest_messages
+    @messages = live_blog.latest_messages(params[:count])
     set_surrogate_key_header [live_blog.record_key, @messages.map(&:record_key)].flatten
 
   end

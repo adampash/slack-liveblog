@@ -18,20 +18,23 @@
     )
 
   componentDidMount: ->
-    @getLatest()
+    @getLatest(30)
     @timer = setInterval @getLatest, 2000 # every 2 seconds
     setTimeout @resize, 1000
 
   componentWillUnmount: ->
     clearInterval @timer
 
-  getLatest: ->
+  getLatest: (count=5) ->
     $.ajax
       method: "GET"
       url: "/latest/#{@props.live_blog.id}"
       dataType: "json"
+      data:
+        count: count
       success: (response) =>
         old_messages = @state.messages
+        return if old_messages[0]?.id is response[0]?.id
         messages = _.uniq(response.concat old_messages)
         state =
           messages: messages
