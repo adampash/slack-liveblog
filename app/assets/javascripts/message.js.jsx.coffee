@@ -27,6 +27,11 @@ ImageLoader = ReactImageLoader
       payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
+    if @props.data.embed?
+      embed = `<Embed data={this.props.data.embed} />`
+    else
+      embed = ''
+
     if @props.hide
       hideAble = "hide"
     else
@@ -51,6 +56,7 @@ ImageLoader = ReactImageLoader
           <div className="text">
             {payload}
           </div>
+          {embed}
         </div>
       </div>`
 

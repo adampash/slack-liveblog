@@ -1,9 +1,7 @@
 emoji.img_sets.apple.path = "//gawker-labs.com/emoji/img-apple-64/"
 emoji.img_sets.apple.sheet = "//gawker-labs.com/emoji/sheet_apple_20.png"
 
-fluidvids.init
-  selector: ['.fluidvid'], # runs querySelectorAll()
-  players: ['www.youtube.com', 'player.vimeo.com'] # players to support
+fluidvids.init({selector: ['.fluidvids iframe'], players: ['www.youtube.com', 'player.vimeo.com']})
 
 @Unfurl =
   all: (@text) ->

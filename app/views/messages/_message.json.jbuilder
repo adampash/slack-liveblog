@@ -10,6 +10,8 @@ if message.attachment?
   json.original message.attachment.url(:original)
   json.attachment_name message.attachment_file_name
 end
-# if message.embed?
-#   json.partial! 'embeds/embed', embed: message.embed
-# end
+unless message.embed.nil?
+  json.embed do
+    json.partial! 'embeds/embed', embed: message.embed
+  end
+end

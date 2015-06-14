@@ -1,0 +1,45 @@
+@import "flexbox";
+@import "kinja_fonts";
+
+.embed {
+  @include flexbox;
+  @include flex-direction(row);
+  @include align-items(stretch);
+  padding-left: 20px;
+  margin: 20px 0;
+  // border-left: 2px solid #ddd;
+
+  &.article {
+    img {
+      width: 120px;
+      height: 100%;
+      margin-right: 12px;
+    }
+  }
+  &.video {
+    display: block;
+    iframe {
+      outline: none;
+      border: none;
+    }
+  }
+  .content {
+    @include flex(1 0 0);
+    @include flex-direction(column);
+    a {
+      text-decoration: none;
+    }
+    h4 {
+      font-family: ProximaNovaCond;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      color: black;
+    }
+    .description {
+      font-family: ProximaNovaCond;
+      font-size: 14px;
+      color: #696969;
+    }
+  }
+}
