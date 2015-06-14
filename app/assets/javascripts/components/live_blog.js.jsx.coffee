@@ -7,8 +7,8 @@
   timer: null
 
   resize: ->
-    console.log "resize to #{height}"
     height = $('body').height()
+    console.log "resize to #{height}"
     window.top.postMessage(
       JSON.stringify(
         kinja:

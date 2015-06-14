@@ -69,8 +69,10 @@
       .user_and_time {
         display: none;
       }
-      .alt.timestamp {
-        display: inline-block;
+      &:hover {
+        .alt.timestamp {
+          display: inline-block;
+        }
       }
     }
   }
