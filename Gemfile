@@ -27,6 +27,7 @@ gem "fastly-rails"
 gem 'breakpoint'
 gem 'kinja'
 gem 'sidekiq'
+gem 'sinatra', :require => nil
 gem 'puma'
 gem 'slack-api'
 gem "paperclip", "~> 4.2"

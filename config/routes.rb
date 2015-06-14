@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   post 'incoming' => 'incoming#handle'
   get 'latest/:id' => 'live_blogs#latest'
   get '/live_blogs/:id/cursor' => 'live_blogs#cursor'
+  require 'sidekiq/web'
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
