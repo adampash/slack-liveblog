@@ -2,10 +2,21 @@
   formatTimestamp: ->
     moment(@props.data.timestamp).format("h:mm A")
 
+  handleImageClick: (e) ->
+    e.preventDefault()
+    window.open(e.currentTarget.href)
+
   render: ->
     timestamp = @formatTimestamp()
     if @props.data.attachment?
-      payload = `<img src={this.props.data.attachment} />`
+      payload = `<a href={this.props.data.original} _target="_blank" onClick={this.handleImageClick}>
+                  <figure>
+                    <img src={this.props.data.attachment} />
+                    <figcaption>
+                      {this.props.data.attachment_name}
+                    </figcaption>
+                  </figure>
+                </a>`
     else
       text = @processText(@props.data.text)
       payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
@@ -38,6 +49,6 @@
         </div>
       </div>`
 
-  processText: (text) ->
+  processText: (text="") ->
     text = Unfurl.all(text)
     text

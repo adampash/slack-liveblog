@@ -101,7 +101,12 @@
       more_button = `<div></div>`
 
     `<div className="liveblog">
-      <h3>{this.props.name} Live Blog</h3>
+      <div className="header">
+        <h3>{this.props.name} Live Blog</h3>
+        <div className="status">
+          <div className={this.props.live ? "live" : "ended"} />
+        </div>
+      </div>
       <div className="messages">
         {messages}
         {more_button}

@@ -5,11 +5,6 @@ body {
   margin: 0;
   padding: 0;
 }
-.liveblog {
-  h3 {
-    font-family: ProximaNovaCond;
-  }
-}
 .messages {
   max-width: 636px;
   width: 100%;
@@ -63,6 +58,18 @@ body {
           margin-top: 10px;
           &.emoji {
             margin: 0;
+          }
+        }
+        figure {
+          margin: 0;
+          padding: 0;
+          a {
+            color: black;
+          }
+          figcaption {
+            font-family: ProximaNovaCond;
+            float: right;
+            color: black;
           }
         }
       }

@@ -1,3 +1,37 @@
 // Place all the styles related to the liveblogs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "flexbox";
+@import "kinja_fonts";
+
+.liveblog {
+  max-width: 800px;
+  .header {
+    @include flexbox;
+    @include flex-direction(row);
+    @include align-content(stretch);
+    margin: 20px 0;
+    h3 {
+      font-family: ProximaNovaCond;
+      @include flex(1 0 0);
+      margin: 0;
+    }
+    .status {
+      text-transform: uppercase;
+      font-family: ProximaNovaCond;
+      font-size: 17px;
+      .live {
+        color: rgb(219, 12, 12);
+        &:after {
+          content: "Live now";
+        }
+      }
+      .ended {
+        color: black;
+        &:after {
+          content: "Ended";
+        }
+      }
+    }
+  }
+}
