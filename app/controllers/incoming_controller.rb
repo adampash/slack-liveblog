@@ -9,7 +9,7 @@ class IncomingController < ApplicationController
         if LiveBlog.active(params[:channel_id]).nil?
           live_blog = LiveBlog.create_from_params(params)
           SlackClient.chat_postMessage(
-            iframe_message(live_blog)
+            bot_message(live_blog)
           )
           SlackClient.channels_setTopic(
             channel: live_blog.channel_id,
