@@ -1,3 +1,5 @@
+require 'slack_client'
+
 class IncomingController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def handle
@@ -11,6 +13,10 @@ class IncomingController < ApplicationController
       if live_blog.nil?
         render text: "This channel already has an active live blog. To end it, type `/end_liveblog`"
       else
+        SlackClient.channels_setTopic(
+          channel: live_blog.channel_id,
+          topic: "LIVE BLOG IN SESSION"
+        )
         render text: iframe_message(live_blog)
       end
     when ENV["SLACK_END_TOKEN"]
@@ -20,6 +26,10 @@ class IncomingController < ApplicationController
       if live_blog.nil?
         render text: "There is no active live blog for this channel"
       else
+        SlackClient.channels_setTopic(
+          channel: live_blog.channel_id,
+          topic: ""
+        )
         render text: "Ended the live blog for #{live_blog.name}"
       end
     when ENV["SLACK_OUTGOING_TOKEN"]
