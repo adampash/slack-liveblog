@@ -6,7 +6,7 @@
     if @props.data.attachment?
       payload = `<img src={this.props.data.attachment} />`
     else
-      payload = @props.data.text
+      payload = `<div dangerouslySetInnerHTML={{__html: this.props.data.text}} />`
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
     if @props.hide
@@ -30,8 +30,8 @@
               {timestamp}
             </div>
           </div>
-          <div className="text"
-            dangerouslySetInnerHTML={{__html: payload}}
-          />
+          <div className="text">
+            {payload}
+          </div>
         </div>
       </div>`
