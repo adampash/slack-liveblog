@@ -16,6 +16,7 @@ class Message < ActiveRecord::Base
     message = create_message(options, live_blog_id)
     if options[:text].nil?
       puts "need to fetch file"
+      puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
       delay.create_file(message.id, options[:timestamp])
     end
     puts "created message"
