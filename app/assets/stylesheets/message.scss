@@ -1,3 +1,4 @@
+@import "flexbox";
 @import "kinja_fonts";
 
 .liveblog {
@@ -8,13 +9,13 @@
 .messages {
   max-width: 636px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
+  @include flexbox;
+  @include flex-direction(column);
   .message {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-content: stretch;
+    @include flexbox;
+    @include flex-direction(row);
+    @include align-content(stretch);
     margin-top: 15px;
     .avatar {
       width: 40px;
@@ -39,10 +40,10 @@
       font-size: 13px;
     }
     .content {
-      flex: 1 0 0;
+      @include flex(1 0 0);
       .user_and_time {
-        display: flex;
-        flex-direction: row;
+        @include flexbox;
+        @include flex-direction(row);
         font-family: ProximaNovaCond;
         .username {
           font-weight: bold;
