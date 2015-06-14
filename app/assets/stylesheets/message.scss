@@ -60,6 +60,7 @@ body {
         img {
           max-width: 100%;
           margin-top: 10px;
+          display: block;
           &.emoji {
             margin: 0;
           }
@@ -67,6 +68,7 @@ body {
         figure {
           margin: 0;
           padding: 0;
+          display: inline-block;
           a {
             color: black;
           }
