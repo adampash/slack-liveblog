@@ -36,7 +36,8 @@ gem 'react-rails'
 gem 'underscore-rails'
 gem 'momentjs-rails'
 gem 'rails_emoji'
-gem "fog", require: "fog/aws/storage"
+# gem "fog", require: "fog/aws/storage"
+gem 'fog-aws', '<= 0.1.1', require: false
 gem "asset_sync"
 
 # Use ActiveModel has_secure_password
