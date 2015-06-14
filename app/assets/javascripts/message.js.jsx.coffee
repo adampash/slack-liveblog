@@ -6,7 +6,7 @@
     if @props.data.attachment?
       payload = `<img src={this.props.data.attachment} />`
     else
-      payload = emojify.replace @props.data.text
+      payload = @props.data.text
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
     if @props.hide
