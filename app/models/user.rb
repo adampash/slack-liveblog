@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :messages
   has_attached_file :avatar,
     :styles => { :large => "192x192>", :thumb => "100x100>" },
-    :default_url => "/images/:style/missing.png",
+    :default_url => "/assets/images/:style/missing.png",
     :storage => :s3,
     :path => 'liveblog/users/avatar/:id/:style/:id',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
