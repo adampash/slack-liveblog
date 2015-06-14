@@ -1,3 +1,5 @@
+require 'slack_client'
+
 class Message < ActiveRecord::Base
   after_create :purge_all
   after_save :purge
