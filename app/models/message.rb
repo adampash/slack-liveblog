@@ -20,8 +20,8 @@ class Message < ActiveRecord::Base
       # puts "need to fetch file"
       puts options
       puts "wtf"
-      puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
-      create_file(message.id, options[:timestamp])
+      # puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
+      self.create_file(message.id, options[:timestamp])
     end
     puts "created message"
     message
@@ -60,6 +60,8 @@ class Message < ActiveRecord::Base
 
         user = User.find_or_create_by_slack_id(data["user"])
         message.user = user
+      else
+        pusts "something went wrong"
       end
       message.live_blog.purge
       message.save
