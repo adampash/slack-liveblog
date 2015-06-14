@@ -2,8 +2,6 @@
 //= require moment
 //= require jquery
 //= require emoji
-//= require fluidvids.min
-//= require ./components/react.fluidvids
 //= require ./components/unfurl
 //= require ./components/react-imageloader
 //= require_tree ./components

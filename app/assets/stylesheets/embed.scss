@@ -26,6 +26,7 @@ $mobile: 500px;
     }
   }
   &.video {
+    padding-left: 0;
     display: block;
     iframe {
       outline: none;
