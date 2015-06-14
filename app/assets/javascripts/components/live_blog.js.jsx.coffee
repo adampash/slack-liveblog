@@ -75,7 +75,7 @@
         if prevUser == message.user.name
           hide = true
           prevHidden++
-          if prevHidden > 6
+          if prevHidden > 10
             hide = false
             prevHidden = 0
         else

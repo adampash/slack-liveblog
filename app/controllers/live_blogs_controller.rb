@@ -17,7 +17,7 @@ class LiveBlogsController < ApplicationController
   def cursor
     live_blog = LiveBlog.find params[:id]
     @messages = live_blog.from_cursor(params[:cursor])
-    set_surrogate_key_header @messages.map(&:record_key)
+    set_surrogate_key_header [live_blog.record_key, @messages.map(&:record_key)].flatten
   end
 
   private
