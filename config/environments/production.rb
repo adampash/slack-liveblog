@@ -34,6 +34,12 @@ Rails.application.configure do
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
+  config.assets.enabled = true
+  config.assets.initialize_on_precompile
+
+  config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}"
+  # store assets in a 'folder' instead of bucket root
+  config.assets.prefix = "/assets"
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
