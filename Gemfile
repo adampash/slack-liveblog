@@ -38,6 +38,7 @@ gem 'momentjs-rails'
 gem 'fog-aws', '<= 0.1.1', require: false
 gem "asset_sync"
 gem "opengraph_parser"
+gem 'rollbar', '~> 1.2.7'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
