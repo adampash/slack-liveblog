@@ -18,6 +18,8 @@ class Message < ActiveRecord::Base
     message = create_message(options, live_blog_id)
     if options[:text].nil?
       # puts "need to fetch file"
+      puts options
+      puts "wtf"
       puts "Message.delay.create_file(#{message.id}, #{options[:timestamp]})"
       create_file(message.id, options[:timestamp])
     end
