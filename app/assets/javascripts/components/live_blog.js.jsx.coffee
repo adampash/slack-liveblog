@@ -77,12 +77,9 @@
         prevUser = @state.messages[index-1].user.name
         if prevUser == message.user.name
           hide = true
-        #   prevHidden++
-        #   if prevHidden > 10
-        #     hide = false
-        #     prevHidden = 0
-        # else
-        #   prevHidden = 0
+          prevTimestamp = @state.messages[index-1].timestamp
+          if new Date(prevTimestamp) - new Date(message.timestamp) > 300000 # 5min
+            hide = false
       `<Message data={message}
         key={message.id}
         hide={hide}
