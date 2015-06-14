@@ -83,6 +83,7 @@
       `<Message data={message}
         key={message.id}
         hide={hide}
+        resize={this.resize}
       />`
 
     if @state.cursor? and @state.cursor != 0

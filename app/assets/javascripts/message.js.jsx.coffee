@@ -1,3 +1,5 @@
+ImageLoader = ReactImageLoader
+
 @Message = React.createClass
   formatTimestamp: ->
     moment(@props.data.timestamp).format("h:mm A")
@@ -11,7 +13,10 @@
     if @props.data.attachment?
       payload = `<a href={this.props.data.original} _target="_blank" onClick={this.handleImageClick}>
                   <figure>
-                    <img src={this.props.data.attachment} />
+                    <ImageLoader
+                      src={this.props.data.attachment}
+                      onLoad={this.resize}
+                    />
                     <figcaption>
                       {this.props.data.attachment_name}
                     </figcaption>
