@@ -21,6 +21,7 @@ class Message < ActiveRecord::Base
       puts "need to fetch file"
       delay.create_file(message.id, options[:timestamp])
     elsif has_link(message.text)
+      puts "need to fetch embed"
       Embed.delay.create_from_message(message.id)
     end
     puts "created message"

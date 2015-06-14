@@ -1,3 +1,5 @@
+require 'opengraph_parser'
+
 class Embed < ActiveRecord::Base
   belongs_to :message
 
