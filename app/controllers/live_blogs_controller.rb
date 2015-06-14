@@ -4,7 +4,7 @@ class LiveBlogsController < ApplicationController
 
   def show
     @live_blog = LiveBlog.find params[:id]
-    set_surrogate_key_header @live_blog.record_key
+    set_surrogate_key_header [@live_blog.record_key]
   end
 
   def latest
