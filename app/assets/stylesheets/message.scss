@@ -92,7 +92,7 @@ body {
       }
     }
   }
-  button {
+  button.load_more {
     font-family: ProximaNovaCond;
     padding: 13px 0 10px;
     background: #FBC000;
@@ -102,6 +102,7 @@ body {
     outline: none;
     border: none;
     cursor: pointer;
+    margin-top: 20px;
     &:hover {
       background: rgba(251, 192, 0, 0.8);
     }
@@ -109,6 +110,7 @@ body {
   .loading {
     text-align: center;
     font-size: 22px;
+    margin-top: 20px;
   }
 }
 
