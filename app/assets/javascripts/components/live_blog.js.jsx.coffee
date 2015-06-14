@@ -21,11 +21,6 @@
     @getLatest()
     @timer = setInterval @getLatest, 2000 # every 2 seconds
     setTimeout @resize, 1000
-    setTimeout =>
-      $('.load_more').bind 'inview', (e, isInView) =>
-        if isInView
-          @fetchMore()
-    , 1000
 
   componentWillUnmount: ->
     clearInterval @timer
