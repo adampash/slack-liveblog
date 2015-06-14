@@ -36,6 +36,6 @@ class IncomingController < ApplicationController
 
   protected
   def iframe_message(live_blog)
-    "Started a new live blog for #{live_blog.name}! To get things running, paste the following iframe code into Kinja:\n\n```<iframe src=\"http://50633fc3.ngrok.com/live_blogs/#{live_blog.id}\" class=\"custom\" width=\"100%\" height=\"500px\"></iframe>```"
+    "Started a new live blog for #{live_blog.name}! To get things running, paste the following iframe code into Kinja:\n\n```<iframe src=\"http://live.gawker-labs.com/live_blogs/#{live_blog.id}\" class=\"custom\" width=\"100%\" height=\"500px\"></iframe>```"
   end
 end
