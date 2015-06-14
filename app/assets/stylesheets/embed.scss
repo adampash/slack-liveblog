@@ -1,5 +1,8 @@
 @import "flexbox";
 @import "kinja_fonts";
+@import "breakpoint";
+
+$mobile: 500px;
 
 .embed {
   @include flexbox;
@@ -7,6 +10,9 @@
   @include align-items(stretch);
   padding-left: 20px;
   margin: 20px 0;
+  @include breakpoint(max-width $mobile) {
+    padding-left: 0;
+  }
   // border-left: 2px solid #ddd;
 
   &.article {
@@ -14,6 +20,9 @@
       width: 120px;
       height: 100%;
       margin-right: 12px;
+      @include breakpoint(max-width $mobile) {
+        display: none;
+      }
     }
   }
   &.video {
