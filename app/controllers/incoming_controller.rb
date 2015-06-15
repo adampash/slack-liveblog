@@ -44,9 +44,9 @@ class IncomingController < ApplicationController
       end
     when ENV["SLACK_OUTGOING_TOKEN"]
       #TODO handle this way better
-      bad_start = "<@U039VMH6P|adampash> set the channel topic"
+      bad_start = "set the channel topic"
       unless params[:text].nil?
-        return if params[:text].index(bad_start) == 0
+        return unless params[:text].index(bad_start).nil?
       end
       live_blog = LiveBlog.active(params[:channel_id])
       unless live_blog.nil?
