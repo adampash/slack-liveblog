@@ -22,6 +22,7 @@
     if @state.live
       @timer = setInterval @getLatest, 5000 # every 5 seconds
     setTimeout @resize, 1000
+    setTimeout @resize, 5000
 
   componentWillUnmount: ->
     clearInterval @timer
@@ -64,7 +65,7 @@
           messages: messages
           cursor: messages[-1..-1][0].cursor
         @setState state
-        setTimeout @resize, 100
+        setTimeout @resize, 1000
       error: (e) =>
         debugger
       complete: =>
