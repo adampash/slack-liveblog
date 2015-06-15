@@ -1,5 +1,6 @@
 require 'slack_client'
 
+# TODO This whole controller could use a serious refactor
 class IncomingController < ApplicationController
   skip_before_filter :verify_authenticity_token
   def handle
@@ -53,7 +54,7 @@ class IncomingController < ApplicationController
   end
   def bot_message(text, channel_id)
     {
-      text: text
+      text: text,
       channel: channel_id,
       username: "LiveBlogBot",
       icon_emoji: ":rocket:",
