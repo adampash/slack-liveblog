@@ -28,7 +28,3 @@ emoji.img_sets.apple.sheet = "//gawker-labs.com/emoji/sheet_apple_20.png"
     emoji.init_env()
     emoji.supports_css = false
     @text = emoji.replace_colons(@text)
-
-  fluidvids:->
-    if @text.match(/\bhttps?:\/\/(www\.)?youtube.com/)
-      console.log "it's got a vid"
