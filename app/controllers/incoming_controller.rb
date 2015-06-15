@@ -26,21 +26,23 @@ class IncomingController < ApplicationController
     when ENV["SLACK_END_TOKEN"]
       if params[:command] == '/end_liveblog'
         live_blog = LiveBlog.end_liveblog(params[:channel_id])
-        if live_blog.nil?
-          render text: "There is no active live blog for this channel"
-        else
+        unless live_blog.nil?
           SlackClient.chat_postMessage(
             bot_message(
               "This live blog is OVER! Hope it went well.",
               live_blog.channel_id
             )
           )
-          SlackClient.channels_setTopic(
-            channel: live_blog.channel_id,
-            topic: ""
-          )
-          render nothing: true
         end
+      end
+      if live_blog.nil?
+        render text: "There is no active live blog for this channel"
+      else
+        SlackClient.channels_setTopic(
+          channel: live_blog.channel_id,
+          topic: ""
+        )
+        render nothing: true
       end
     when ENV["SLACK_OUTGOING_TOKEN"]
       live_blog = LiveBlog.active(params[:channel_id])
