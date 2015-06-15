@@ -13,6 +13,7 @@
     margin: 20px 0;
     h3 {
       font-family: ProximaNovaCond;
+      text-transform: uppercase;
       @include flex(1 0 0);
       margin: 0;
     }
