@@ -9,7 +9,7 @@ class IncomingController < ApplicationController
         if LiveBlog.active(params[:channel_id]).nil?
           live_blog = LiveBlog.create_from_params(params)
           SlackClient.chat_postMessage(
-            bot_message(live_blog)
+            bot_message(iframe_message(live_blog), live_blog.channel_id)
           )
           SlackClient.channels_setTopic(
             channel: live_blog.channel_id,
@@ -20,7 +20,7 @@ class IncomingController < ApplicationController
       if live_blog.nil?
         render text: "This channel already has an active live blog. To end it, type `/end_liveblog`"
       else
-        render text: iframe_message(live_blog)
+        render nothing: true
       end
     when ENV["SLACK_END_TOKEN"]
       if params[:command] == '/end_liveblog'
@@ -49,12 +49,12 @@ class IncomingController < ApplicationController
 
   protected
   def iframe_message(live_blog)
-    "Started a new live blog for #{live_blog.name}! To embed your live blog, paste the following iframe code into Kinja:\n\n```<iframe src=\"http://live.gawker-labs.com/live_blogs/#{live_blog.id}\" class=\"custom\" width=\"100%\" height=\"500px\"></iframe>```"
+    "Started a new live blog for #{live_blog.name}! To embed your live blog, paste the following iframe code into Kinja:\n\n```<iframe src=\"http://live.gawker-labs.com/live_blogs/#{live_blog.id}\" class=\"custom\" width=\"100%\" height=\"500px\"></iframe>```\n\nEverything you type until someone decides to /end_liveblog will... show up in your live blog! Good luck!"
   end
-  def bot_message(live_blog)
+  def bot_message(text, channel_id)
     {
-      text: iframe_message(live_blog),
-      channel: live_blog.channel_id,
+      text: text
+      channel: channel_id,
       username: "LiveBlogBot",
       icon_emoji: ":rocket:",
     }
