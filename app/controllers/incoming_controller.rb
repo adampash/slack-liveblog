@@ -43,6 +43,8 @@ class IncomingController < ApplicationController
         end
       end
     when ENV["SLACK_OUTGOING_TOKEN"]
+      bad_start = "<@U039VMH6P|adampash> set the channel topic"
+      return if params[:text].index(bad_start) == 0
       live_blog = LiveBlog.active(params[:channel_id])
       unless live_blog.nil?
         puts "deal with new message"
