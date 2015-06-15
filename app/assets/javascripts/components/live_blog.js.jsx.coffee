@@ -45,7 +45,11 @@
         if old_messages.length is 0
           state["cursor"] = messages[-1..-1][0].cursor
         @setState state
+        # need to figure this OUT
         setTimeout @resize, 100
+        setTimeout @resize, 500
+        setTimeout @resize, 1000
+        setTimeout @resize, 3000
       error: (e) =>
         console.warn "ERROR"
         @
@@ -65,7 +69,11 @@
           messages: messages
           cursor: messages[-1..-1][0].cursor
         @setState state
+        # need to figure this garbage out
         setTimeout @resize, 100
+        setTimeout @resize, 500
+        setTimeout @resize, 1000
+        setTimeout @resize, 3000
         setTimeout @resize, 5000
       error: (e) =>
         debugger
