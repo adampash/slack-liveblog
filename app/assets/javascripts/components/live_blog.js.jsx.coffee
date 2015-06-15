@@ -35,6 +35,8 @@
         count: count
       success: (response) =>
         old_messages = @state.messages
+        if Math.random() * 100 > 50
+          setTimeout @resize, 100
         return if old_messages[0]?.id is response[0]?.id
         messages = _.uniq(response.concat old_messages)
         state =
