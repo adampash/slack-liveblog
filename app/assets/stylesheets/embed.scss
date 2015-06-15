@@ -7,7 +7,7 @@
   @include flexbox;
   @include flex-direction(row);
   @include align-items(stretch);
-  padding-left: 20px;
+  padding-left: 0;
   margin: 20px 0;
   @include breakpoint(max-width $mobile) {
     padding-left: 0;
