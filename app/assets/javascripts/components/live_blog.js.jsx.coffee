@@ -65,7 +65,8 @@
           messages: messages
           cursor: messages[-1..-1][0].cursor
         @setState state
-        setTimeout @resize, 1000
+        setTimeout @resize, 100
+        setTimeout @resize, 5000
       error: (e) =>
         debugger
       complete: =>
