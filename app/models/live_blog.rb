@@ -24,10 +24,10 @@ class LiveBlog < ActiveRecord::Base
   def self.find_cache(id)
     in_cache = Rails.cache.read("live_blog/#{id}")
     if in_cache
-      puts "CACHED"
+      puts "CACHED LIVEBLOG"
       live_blog = in_cache
     else
-      puts "NOT CACHED"
+      puts "NOT CACHED LIVEBLOG"
       live_blog = LiveBlog.find(id)
       Rails.cache.write(
         "live_blog/#{id}",
@@ -49,10 +49,10 @@ class LiveBlog < ActiveRecord::Base
   def latest_messages_cache(count)
     in_cache = Rails.cache.read("latest/#{count}")
     if in_cache
-      puts "CACHED"
+      puts "CACHED MESSSAGES"
       messages = in_cache
     else
-      puts "NOT CACHED"
+      puts "NOT CACHED MESSSAGES"
       messages = latest_messages(count)
       Rails.cache.write(
         "latest_messages/#{count}",
