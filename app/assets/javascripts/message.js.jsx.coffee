@@ -15,7 +15,7 @@ ImageLoader = ReactImageLoader
                   <figure>
                     <ImageLoader
                       src={this.props.data.attachment}
-                      onLoad={this.resize}
+                      onLoad={this.props.resize}
                     />
                     <figcaption>
                       {this.props.data.attachment_name}
