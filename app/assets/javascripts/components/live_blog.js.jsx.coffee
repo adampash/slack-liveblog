@@ -20,7 +20,7 @@
   componentDidMount: ->
     @getLatest(30)
     if @state.live
-      @timer = setInterval @getLatest, 2000 # every 2 seconds
+      @timer = setInterval @getLatest, 5000 # every 5 seconds
     setTimeout @resize, 1000
 
   componentWillUnmount: ->
