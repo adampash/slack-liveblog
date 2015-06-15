@@ -8,13 +8,13 @@ class IncomingController < ApplicationController
     when ENV["SLACK_START_TOKEN"]
       if params[:command] == '/start_liveblog'
         if LiveBlog.active(params[:channel_id]).nil?
+          SlackClient.channels_setTopic(
+            channel: options[:channel_id],
+            topic: "LIVE BLOG IN SESSION"
+          )
           live_blog = LiveBlog.create_from_params(params)
           SlackClient.chat_postMessage(
             bot_message(iframe_message(live_blog), live_blog.channel_id)
-          )
-          SlackClient.channels_setTopic(
-            channel: live_blog.channel_id,
-            topic: "LIVE BLOG IN SESSION"
           )
         end
       end
