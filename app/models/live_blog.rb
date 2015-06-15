@@ -22,13 +22,13 @@ class LiveBlog < ActiveRecord::Base
   end
 
   def self.find_cache(id)
-    in_cache = Rails.cache.read("live_blog/#{params[:id]}")
+    in_cache = Rails.cache.read("live_blog/#{id}")
     if in_cache
       live_blog = in_cache
     else
-      live_blog = LiveBlog.find(params[:id])
+      live_blog = LiveBlog.find(id)
       Rails.cache.write(
-        "live_blog/#{params[:id]}",
+        "live_blog/#{id}",
         live_blog,
         expires_in: 2.seconds,
       )
