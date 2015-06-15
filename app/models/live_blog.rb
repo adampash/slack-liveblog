@@ -47,7 +47,7 @@ class LiveBlog < ActiveRecord::Base
   end
 
   def latest_messages_cache(count)
-    in_cache = Rails.cache.read("latest/#{count}")
+    in_cache = Rails.cache.read("latest/#{id}/#{count}")
     if in_cache
       puts "CACHED MESSSAGES"
       messages = in_cache
@@ -55,7 +55,7 @@ class LiveBlog < ActiveRecord::Base
       puts "NOT CACHED MESSSAGES"
       messages = latest_messages(count)
       Rails.cache.write(
-        "latest_messages/#{count}",
+        "latest/#{id}/#{count}",
         messages,
         expires_in: 2.seconds,
       )

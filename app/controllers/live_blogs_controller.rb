@@ -11,6 +11,7 @@ class LiveBlogsController < ApplicationController
   def latest
     # live_blog = LiveBlog.find params[:id]
     live_blog = LiveBlog.find_cache params[:id]
+    # @messages = LiveBlog.latest_messages_cache params[:id], params[:count]
     @messages = live_blog.latest_messages_cache(params[:count])
     set_surrogate_key_header [live_blog.record_key, @messages.map(&:record_key)].flatten
 
