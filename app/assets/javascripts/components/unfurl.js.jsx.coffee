@@ -5,7 +5,6 @@ emoji.img_sets.apple.sheet = "//gawker-labs.com/emoji/sheet_apple_20.png"
   all: (@text) ->
     if @hasLinks(@text)
       @extractLinks()
-      # @fluidvids()
 
     @emojify()
     @text
