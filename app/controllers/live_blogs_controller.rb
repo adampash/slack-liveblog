@@ -3,13 +3,15 @@ class LiveBlogsController < ApplicationController
   after_action :allow_iframe
 
   def show
-    @live_blog = LiveBlog.find params[:id]
+    # @live_blog = LiveBlog.find params[:id]
+    @live_blog = LiveBlog.find_cache params[:id]
     set_surrogate_key_header [@live_blog.record_key]
   end
 
   def latest
-    live_blog = LiveBlog.find params[:id]
-    @messages = live_blog.latest_messages(params[:count])
+    # live_blog = LiveBlog.find params[:id]
+    live_blog = LiveBlog.find_cache params[:id]
+    @messages = live_blog.latest_messages_cache(params[:count])
     set_surrogate_key_header [live_blog.record_key, @messages.map(&:record_key)].flatten
 
   end

@@ -40,6 +40,10 @@ gem "asset_sync"
 gem "opengraph_parser"
 gem 'rollbar', '~> 1.2.7'
 
+# Caching
+gem 'dalli'
+gem 'memcachier'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

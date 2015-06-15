@@ -21,12 +21,42 @@ class LiveBlog < ActiveRecord::Base
     live_blog
   end
 
+  def self.find_cache(id)
+    in_cache = Rails.cache.read("live_blog/#{params[:id]}")
+    if in_cache
+      live_blog = in_cache
+    else
+      live_blog = LiveBlog.find(params[:id])
+      Rails.cache.write(
+        "live_blog/#{params[:id]}",
+        live_blog,
+        expires_in: 2.seconds,
+      )
+    end
+    live_blog
+  end
+
   def self.active(channel_id)
     find_by(channel_id: channel_id, live: true)
   end
 
   def latest_messages(count)
     messages.order('timestamp DESC').limit(count).where(processed: true)
+  end
+
+  def latest_messages_cache(count)
+    in_cache = Rails.cache.read("latest/#{count}")
+    if in_cache
+      messages = in_cache
+    else
+      messages = latest_messages(count)
+      Rails.cache.write(
+        "latest_messages/#{count}",
+        messages,
+        expires_in: 2.seconds,
+      )
+    end
+    messages
   end
 
   def from_cursor(cursor)

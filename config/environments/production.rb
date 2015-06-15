@@ -41,6 +41,19 @@ Rails.application.configure do
   # store assets in a 'folder' instead of bucket root
   config.assets.prefix = "/liveblog/assets"
 
+
+  # For caching w/memcachier
+  config.cache_store = :dalli_store,
+                    (ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                    {:username => ENV["MEMCACHIER_USERNAME"],
+                     :password => ENV["MEMCACHIER_PASSWORD"],
+                     :failover => true,
+                     :socket_timeout => 1.5,
+                     :socket_failure_delay => 0.2,
+                     :expires_in => 2,
+                    }
+
+
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Specifies the header that your server uses for sending files.
