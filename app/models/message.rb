@@ -2,7 +2,11 @@ require 'slack_client'
 
 class Message < ActiveRecord::Base
   after_create :purge_all
+  after_update :purge
+  after_update :purge_all
   after_save :purge
+  after_save :purge_all
+
   belongs_to :live_blog
   belongs_to :user
   has_one :embed
