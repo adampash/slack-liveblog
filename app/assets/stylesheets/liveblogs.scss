@@ -50,14 +50,19 @@
       .ended {
         color: black;
         &:after {
-          content: "Ended";
+          content: "";
         }
       }
     }
   }
 }
+.end_message {
+  font-family: ProximaNovaCond;
+  text-align: center;
+  width: 100%;
+}
 
 @include keyframes(glow) {
   0%,100%{ box-shadow:0 0 8px rgba(255, 0, 0, 0.7); }
-  50%{ box-shadow:0 0 8px rgba(255, 0, 0, 0.3); }
+  50%{ box-shadow:0 0 2px rgba(255, 0, 0, 0.4); }
 }

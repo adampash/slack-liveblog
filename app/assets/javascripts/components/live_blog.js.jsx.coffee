@@ -36,12 +36,15 @@
         count: count
       success: (response) =>
         old_messages = @state.messages
+        new_messages = response.messages
         if Math.random() * 100 > 50
           setTimeout @resize, 100
-        return if old_messages[0]?.id is response[0]?.id
-        messages = _.uniq(response.concat old_messages)
+        return if old_messages[0]?.id is new_messages[0]?.id and response.live
+        messages = _.uniq(new_messages.concat old_messages)
         state =
           messages: messages
+          live: response.live
+        clearInterval @timer unless @state.live
         if old_messages.length is 0
           state["cursor"] = messages[-1..-1][0].cursor
         @setState state
@@ -113,15 +116,21 @@
     else
       more_button = `<div></div>`
 
+    unless @state.live
+      ended = `<div className="end_message">
+                  The {this.props.name} live blog is over. Thanks for joining!
+               </div>`
+
     `<div className="liveblog">
       <div className="header">
         <h3>{this.props.name} Live Blog</h3>
         <div className="status">
-          <div className={this.props.live ? "live" : "ended"} />
+          <div className={this.state.live ? "live" : "ended"} />
           <span className="record" />
         </div>
       </div>
       <div className="messages">
+        {ended}
         {messages}
         {more_button}
       </div>
