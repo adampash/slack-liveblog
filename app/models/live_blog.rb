@@ -1,6 +1,8 @@
 class LiveBlog < ActiveRecord::Base
   has_many :messages
   belongs_to :user
+  after_update :purge_cache
+  after_save :purge_cache
 
   def self.create_from_params(options)
     user = User.find_or_create(options)
@@ -32,7 +34,7 @@ class LiveBlog < ActiveRecord::Base
       Rails.cache.write(
         "live_blog/#{id}",
         live_blog,
-        expires_in: 2.seconds,
+        expires_in: 30.seconds,
       )
     end
     live_blog
@@ -57,7 +59,7 @@ class LiveBlog < ActiveRecord::Base
       Rails.cache.write(
         "latest/#{id}/#{count}",
         messages,
-        expires_in: 2.seconds,
+        expires_in: 30.seconds,
       )
     end
     messages
@@ -65,6 +67,14 @@ class LiveBlog < ActiveRecord::Base
 
   def from_cursor(cursor)
     messages.where('cursor < ?', cursor).order('cursor DESC').limit(40).where(processed: true)
+  end
+
+  protected
+  def purge_cache
+    Rails.cache.delete("live_blog/#{id}")
+    Rails.cache.delete("latest/#{id}/5")
+    Rails.cache.delete("latest/#{id}/30")
+    purge
   end
 
 end

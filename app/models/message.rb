@@ -1,11 +1,11 @@
 require 'slack_client'
 
 class Message < ActiveRecord::Base
-  after_create :purge_all
-  after_update :purge
-  after_update :purge_all
-  after_save :purge
-  after_save :purge_all
+  after_create :purge_cache_all
+  after_update :purge_cache
+  after_update :purge_cache_all
+  after_save :purge_cache
+  after_save :purge_cache_all
 
   belongs_to :live_blog
   belongs_to :user
@@ -96,6 +96,19 @@ class Message < ActiveRecord::Base
       :access_key_id => ENV["AWS_ACCESS_KEY"],
       :secret_access_key => ENV["AWS_SECRET_KEY"],
     }
+  end
+
+  protected
+  def purge_cache
+    Rails.cache.delete("latest/#{live_blog.id}/5")
+    Rails.cache.delete("latest/#{live_blog.id}/30")
+    purge
+  end
+
+  def purge_cache_all
+    Rails.cache.delete("latest/#{live_blog.id}/5")
+    Rails.cache.delete("latest/#{live_blog.id}/30")
+    purge_all
   end
 
 end
