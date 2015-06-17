@@ -83,3 +83,4 @@ production:
   database: liveblog_production
   username: liveblog
   password: <%= ENV['LIVEBLOG_DATABASE_PASSWORD'] %>
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
