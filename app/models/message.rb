@@ -35,7 +35,6 @@ class Message < ActiveRecord::Base
   def self.create_message(options, live_blog_id)
     user = User.find_or_create(options)
     live_blog = LiveBlog.find live_blog_id
-    live_blog.purge
 
     text = options[:text]
 
@@ -109,6 +108,7 @@ class Message < ActiveRecord::Base
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
     purge_all
+    live_blog.purge
   end
 
 end
