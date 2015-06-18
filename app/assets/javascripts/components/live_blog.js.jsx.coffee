@@ -118,7 +118,7 @@
 
     unless @state.live
       ended = `<div className="end_message">
-                  The {this.props.name} live blog is over. Thanks for joining!
+                  The {this.props.name} live blog has ended.
                </div>`
 
     `<div className="liveblog">
