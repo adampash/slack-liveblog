@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :messages
   post 'incoming' => 'incoming#handle'
   get 'latest/:id' => 'live_blogs#latest'
-  get '/live_blogs/:id/cursor' => 'live_blogs#cursor'
+  get 'next/:id/cursor/:cursor' => 'live_blogs#next_cursor'
+  get 'live_blogs/:id/cursor' => 'live_blogs#cursor'
 
   require "sidekiq/web"
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|

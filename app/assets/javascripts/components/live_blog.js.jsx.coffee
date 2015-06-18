@@ -20,7 +20,8 @@
   componentDidMount: ->
     @getLatest(30)
     if @state.live
-      @timer = setInterval @getLatest, 5000 # every 5 seconds
+      # @timer = setInterval @getLatest, 5000 # every 5 seconds
+      @timer = setInterval @getNext, 5000 # every 5 seconds
     setTimeout @resize, 1000
     setTimeout @resize, 5000
 
@@ -56,6 +57,38 @@
       error: (e) =>
         console.warn "ERROR"
         @
+
+  getNext: ->
+    cursor = @state.messages[0]?.cursor
+    $.ajax
+      method: "GET"
+      url: "/next/#{@props.live_blog.id}/cursor/#{cursor}"
+      dataType: "json"
+      success: (response) =>
+        old_messages = @state.messages
+        new_messages = response.messages
+        if Math.random() * 100 > 50
+          setTimeout @resize, 100
+        # return if old_messages[0]?.id is new_messages[0]?.id and response.live
+        return if new_messages.length is 0 and response.live
+        messages = new_messages.concat old_messages
+        state =
+          messages: messages
+          live: response.live
+        clearInterval @timer unless @state.live
+        if old_messages.length is 0
+          state["cursor"] = messages[-1..-1][0].cursor
+        @setState state
+        # need to figure this OUT
+        setTimeout @resize, 100
+        setTimeout @resize, 500
+        setTimeout @resize, 1000
+        setTimeout @resize, 3000
+      error: (e) =>
+        console.warn "ERROR"
+        @
+
+
 
   fetchMore: ->
     @setState

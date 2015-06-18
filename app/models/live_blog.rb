@@ -65,6 +65,15 @@ class LiveBlog < ActiveRecord::Base
     messages
   end
 
+  def next_cursor_cache(cursor, count=5)
+    next_from_cursor(cursor, count)
+  end
+
+  def next_from_cursor(cursor, count=5)
+    # this will have problems with async processed=true
+    messages.where('cursor > ?', cursor).order('cursor DESC').limit(count).where(processed: true)
+  end
+
   def from_cursor(cursor)
     messages.where('cursor < ?', cursor).order('cursor DESC').limit(40).where(processed: true)
   end

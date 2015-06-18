@@ -12,7 +12,14 @@ class LiveBlogsController < ApplicationController
     @live_blog = LiveBlog.find_cache params[:id]
     @messages = @live_blog.latest_messages_cache(params[:count])
     set_surrogate_key_header [@live_blog.record_key, @messages.map(&:record_key)].flatten
+  end
 
+  def next_cursor
+    # need to figure out how to do this while also getting processed messages. maybe return processed message
+    @live_blog = LiveBlog.find_cache params[:id]
+    @messages = @live_blog.next_cursor_cache(params[:cursor])
+    render :latest
+    set_surrogate_key_header [@live_blog.record_key, @messages.map(&:record_key)].flatten
   end
 
   def cursor
