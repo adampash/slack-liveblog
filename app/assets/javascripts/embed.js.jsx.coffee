@@ -10,10 +10,10 @@
   componentDidMount: ->
     # fluidvids.render() if @props.data.type is 'video'
     tweetRegEx = /https?:\/\/twitter.com\/.+\/status\/(\d+)/
-    if twttr?.widgets?
-      if @props.data.url.match(tweetRegEx)?
-        resize = @props.resize
-        tweetId = @props.data.url.match(tweetRegEx)[1]
+    if @props.data.url.match(tweetRegEx)?
+      resize = @props.resize
+      tweetId = @props.data.url.match(tweetRegEx)[1]
+      twttr.ready =>
         twttr.widgets.createTweet(tweetId, React.findDOMNode(@refs.tweet))
           .then (el) ->
             resize()
