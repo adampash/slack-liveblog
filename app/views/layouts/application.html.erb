@@ -4,7 +4,6 @@
     <title>Liveblog</title>
     <meta name='viewport' content='user-scalable=no width=device-width, initial-scale=1.0 maximum-scale=1.0'>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -27,5 +26,6 @@ t.ready = function(f) {
 
 return t;
 }(document, "script", "twitter-wjs"));</script>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </body>
 </html>
