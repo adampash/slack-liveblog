@@ -52,3 +52,13 @@
     }
   }
 }
+
+.native {
+  display: none;
+}
+.tweet:empty {
+  display: none;
+}
+.tweet:empty + .native {
+    @include flexbox;
+}

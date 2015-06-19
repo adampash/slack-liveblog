@@ -28,7 +28,9 @@ ImageLoader = ReactImageLoader
     return `<div></div>` if @props.data.user.name is 'slackbot'
 
     if @props.data.embed?
-      embed = `<Embed data={this.props.data.embed} />`
+      embed = `<Embed data={this.props.data.embed}
+                  resize={this.props.resize}
+              />`
     else
       embed = ''
 

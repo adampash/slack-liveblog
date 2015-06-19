@@ -9,7 +9,13 @@
 
   componentDidMount: ->
     # fluidvids.render() if @props.data.type is 'video'
-
+    tweetRegEx = /https?:\/\/twitter.com\/.+\/status\/(\d+)/
+    if @props.data.url.match(tweetRegEx)?
+      resize = @props.resize
+      tweetId = @props.data.url.match(tweetRegEx)[1]
+      twttr.widgets.createTweet(tweetId, React.findDOMNode(@refs.tweet))
+        .then (el) ->
+          resize()
   playVid: ->
     @setState
       play: true
@@ -19,14 +25,17 @@
     if data.type is 'article'
       if data.image?
         img = `<img src={data.image} />`
-      embed = `<div className="embed article">
-        {img}
-        <div className="content">
-          <a href={data.url} target="_blank">
-            <h4>{data.title}</h4>
-          </a>
-          <div className="description">
-            {data.description}
+      embed = `<div className="embed article" ref="embed">
+        <div ref="tweet" className="tweet" />
+        <div className="native">
+          {img}
+          <div className="content">
+            <a href={data.url} target="_blank">
+              <h4>{data.title}</h4>
+            </a>
+            <div className="description">
+              {data.description}
+            </div>
           </div>
         </div>
       </div>`
