@@ -5,53 +5,66 @@
 @import "kinja_fonts";
 @import "keyframe";
 @import "animation";
+@import "colors";
 
 .liveblog {
-  max-width: 800px;
+  max-width: 636px;
+  border-bottom: 1px solid $rule_color;
+  padding-bottom: 25px;
   .header {
     @include flexbox;
-    @include flex-direction(row);
+    @include flex-direction(column);
     @include align-content(stretch);
-    margin: 20px 0;
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid $rule_color;
+    border-bottom: 1px solid $rule_color;
     h3 {
       font-family: ProximaNovaCond;
+      font-size: 22px;
+      padding-bottom: 6px;
       text-transform: uppercase;
-      @include flex(1 0 0);
+      @include flex(1 1 auto);
       margin: 0;
     }
     .status {
       text-transform: uppercase;
       font-family: ProximaNovaCond;
       font-size: 17px;
+      // display: block;
       @include flexbox;
       @include flex-direction(row);
-      @include align-content(center);
+      @include justify-content(center);
       .record {
         display: none;
         height: 10px;
         width: 10px;
-        border-radius: 7px;
-        border: 2px solid white;
-        background: rgb(219, 12, 12);
-        margin: 1px 5px;
-        @include align-items(center);
+        border-radius: 50%;
+        background: red;
+        margin: 3px 8px;
       }
       .live {
-        color: rgb(219, 12, 12);
+        color: red;
+        font-weight: bold;
+        font-size: 15px;
         &:after {
           content: "Live now";
         }
-        &+ .record {
-          @include animation(0s, 5s, glow, infinite);
-          @include flexbox;
-          @include flex(1 0 0);
-        }
       }
-      .ended {
-        color: black;
-        &:after {
-          content: "";
-        }
+    }
+    &.live .record {
+      display: inline-block;
+      // @include animation(0s, 5s, glow, infinite);
+      // @include flexbox;
+      // @include flex(1 0 0);
+    }
+    .ended {
+      color: black;
+      text-transform: none;
+      font-size: 16px;
+      &:after {
+        content: "";
       }
     }
   }

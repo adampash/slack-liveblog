@@ -117,20 +117,19 @@
       more_button = `<div></div>`
 
     unless @state.live
-      ended = `<div className="end_message">
+      ended = `<div>
                   The {this.props.name} live blog has ended.
                </div>`
 
     `<div className="liveblog">
-      <div className="header">
+      <div className={this.state.live ? "header live" : "header ended" }>
         <h3>{this.props.name} Live Blog</h3>
         <div className="status">
-          <div className={this.state.live ? "live" : "ended"} />
           <span className="record" />
+          <div className={this.state.live ? "live" : "ended"}>{ended}</div>
         </div>
       </div>
       <div className="messages">
-        {ended}
         {messages}
         {more_button}
       </div>
