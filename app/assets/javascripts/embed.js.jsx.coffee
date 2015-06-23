@@ -23,9 +23,9 @@
 
   render: ->
     data = @props.data
-    if data.type is 'article'
+    if data.type is 'article' or data.type is 'blog'
       if data.image?
-        img = `<img src={data.image} />`
+        img = `<div className="media"><img src={data.image} /></div>`
       embed = `<div className="embed article" ref="embed">
         <div ref="tweet" className="tweet" />
         <div className="native">

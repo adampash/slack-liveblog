@@ -31,6 +31,8 @@ ImageLoader = ReactImageLoader
       embed = `<Embed data={this.props.data.embed}
                   resize={this.props.resize}
               />`
+      if @props.data.text.match(/^<.+>$/)
+        payload = ''
     else
       embed = ''
 
