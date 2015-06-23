@@ -6,7 +6,10 @@ class Embed < ActiveRecord::Base
   def self.create_from_message(message_id)
     message = Message.find message_id
     link = extract_link(message.text)
-    og = OpenGraph.new(link[:url])
+    agent = Mechanize.new
+    agent.user_agent_alias = 'Mac Safari'
+    html = agent.get(link[:url]).content
+    og = OpenGraph.new(html)
     create(
       message_id: message.id,
       description: og.description,
