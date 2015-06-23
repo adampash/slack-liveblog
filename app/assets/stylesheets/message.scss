@@ -11,6 +11,7 @@ body {
 .messages {
   max-width: 636px;
   width: 100%;
+  min-height: 500px;
   @include flexbox;
   @include flex-direction(column);
   .message:first-child {
