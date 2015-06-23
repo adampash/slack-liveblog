@@ -4,8 +4,8 @@
 @import "breakpoints";
 
 .message .text:empty {
-  .embed {
-    margin: 10px 0;
+  &+ .embed {
+    margin: 5px 0 10px;
   }
 }
 .embed {
