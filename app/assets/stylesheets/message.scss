@@ -18,6 +18,9 @@ body {
     margin-top: 0;
     border-top: none;
   }
+  .message.hidden + .message {
+    border: none;
+  }
   .message {
     width: 100%;
     @include flexbox;
@@ -26,6 +29,9 @@ body {
     padding: 29px 0 0;
     margin-top: 20px;
     border-top: 1px solid $rule_color;
+    &.hidden {
+      display: none;
+    }
     .avatar {
       width: 40px;
       height: 40px;

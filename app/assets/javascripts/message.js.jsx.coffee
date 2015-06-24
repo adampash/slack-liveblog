@@ -16,7 +16,7 @@ ImageLoader = ReactImageLoader
       setTimeout @fetchUnprocessed, 2000
 
   fetchUnprocessed: ->
-    if @state.fetchTries < 5 and !@props.data.processed
+    if @state.fetchTries < 10 and !@props.data.processed
       $.ajax
         url: "/messages/#{@props.data.id}"
         method: "GET"
@@ -44,7 +44,10 @@ ImageLoader = ReactImageLoader
 
   render: ->
     timestamp = @formatTimestamp()
-    return `<div />` if @props.data.user.name is 'slackbot'
+    if @props.data.user.name is 'slackbot'
+      hideMessage = "hidden"
+    else
+      hideMessage = ""
     if @props.data.attachment?.url?
       payload = `<a href={this.props.data.attachment.original} _target="_blank" onClick={this.handleImageClick}>
                   <figure>
@@ -75,7 +78,7 @@ ImageLoader = ReactImageLoader
     else
       hideAble = ""
 
-    `<div className={"message " + hideAble}>
+    `<div className={"message " + hideAble + " " + hideMessage}>
         <div className="avatar">
           <img src={this.props.data.user.avatar} />
           <div className="alt timestamp">
