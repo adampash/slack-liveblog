@@ -22,10 +22,10 @@ class Message < ActiveRecord::Base
   def self.find_cache(id)
     in_cache = Rails.cache.read("messages/#{id}")
     if in_cache
-      puts "CACHED LIVEBLOG"
+      puts "CACHED MESSAGE"
       message = in_cache
     else
-      puts "NOT CACHED LIVEBLOG"
+      puts "NOT CACHED MESSAGE"
       message = Message.find(id)
       Rails.cache.write(
         "messages/#{id}",
@@ -118,7 +118,7 @@ class Message < ActiveRecord::Base
   def purge_cache
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
-    Rails.cache.delete("message/#{id}")
+    Rails.cache.delete("messages/#{id}")
     Rails.cache.delete("cursor/#{live_blog.id}/#{cursor}")
     purge
   end
@@ -126,7 +126,7 @@ class Message < ActiveRecord::Base
   def purge_cache_all
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
-    Rails.cache.delete("message/#{id}")
+    Rails.cache.delete("messages/#{id}")
     Rails.cache.delete("cursor/#{live_blog.id}/#{cursor}")
     purge_all
     live_blog.purge

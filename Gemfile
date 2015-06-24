@@ -40,6 +40,7 @@ gem "asset_sync"
 gem "opengraph_parser"
 gem "mechanize"
 gem 'rollbar', '~> 1.2.7'
+gem 'newrelic_rpm'
 
 # Caching
 gem 'dalli'
