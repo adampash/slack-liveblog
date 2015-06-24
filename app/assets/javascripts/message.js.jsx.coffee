@@ -1,8 +1,42 @@
 ImageLoader = ReactImageLoader
 
 @Message = React.createClass
+  getInitialState: ->
+    fetchTries: 0
+    # embed: @props.data.embed
+    # processed: @props.data.processed
+    # attachment: @props.data.attachment
+    # user: @props.data.user
+
   formatTimestamp: ->
     moment(@props.data.timestamp).format("h:mm A")
+
+  componentDidMount: ->
+    unless @props.data.processed
+      setTimeout @fetchUnprocessed, 2000
+
+  fetchUnprocessed: ->
+    if @state.fetchTries < 3 and !@props.data.processed
+      $.ajax
+        url: "/messages/#{@props.data.id}"
+        method: "GET"
+        dataType: 'json'
+        success: (message) =>
+          if message.processed
+            console.log message
+            console.log message.processed
+            @props.updateUnprocessed(message)
+            # @setState
+            #   embed: message.embed
+            #   attachment: message.attachment
+            #   processed: true
+            #   user: message.user
+          else
+            @setState
+              fetchTries: @state.fetchTries + 1
+            setTimeout @fetchUnprocessed, 2000 * @state.fetchTries
+        error: =>
+          debugger
 
   handleImageClick: (e) ->
     e.preventDefault()
@@ -10,22 +44,22 @@ ImageLoader = ReactImageLoader
 
   render: ->
     timestamp = @formatTimestamp()
-    if @props.data.attachment?
-      payload = `<a href={this.props.data.original} _target="_blank" onClick={this.handleImageClick}>
+    return `<div />` if @props.data.user.name is 'slackbot'
+    if @props.data.attachment?.url?
+      payload = `<a href={this.props.data.attachment.original} _target="_blank" onClick={this.handleImageClick}>
                   <figure>
                     <ImageLoader
-                      src={this.props.data.attachment}
+                      src={this.props.data.attachment.url}
                       onLoad={this.props.resize}
                     />
                     <figcaption>
-                      {this.props.data.attachment_name}
+                      {this.props.data.attachment.name}
                     </figcaption>
                   </figure>
                 </a>`
     else
       text = @processText(@props.data.text)
       payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
-    return `<div></div>` if @props.data.user.name is 'slackbot'
 
     if @props.data.embed?
       embed = `<Embed data={this.props.data.embed}

@@ -19,6 +19,23 @@ class Message < ActiveRecord::Base
 
   validates_attachment_content_type :attachment, :content_type => /\Aimage\/.*\Z/
 
+  def self.find_cache(id)
+    in_cache = Rails.cache.read("messages/#{id}")
+    if in_cache
+      puts "CACHED LIVEBLOG"
+      message = in_cache
+    else
+      puts "NOT CACHED LIVEBLOG"
+      message = Message.find(id)
+      Rails.cache.write(
+        "messages/#{id}",
+        message,
+        expires_in: 30.seconds,
+      )
+    end
+    live_blog
+  end
+
   def self.create_from_params(options, live_blog_id)
     message = create_message(options, live_blog_id)
     if message.text.nil?
@@ -101,12 +118,14 @@ class Message < ActiveRecord::Base
   def purge_cache
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
+    Rails.cache.delete("message/#{id}")
     purge
   end
 
   def purge_cache_all
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
+    Rails.cache.delete("message/#{id}")
     purge_all
     live_blog.purge
   end

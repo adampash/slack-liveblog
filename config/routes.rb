@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :messages
   post 'incoming' => 'incoming#handle'
   get 'latest/:id' => 'live_blogs#latest'
+  # get 'embed_for_message/:id' => 'messages#embed'
   get 'next/:id/cursor/:cursor' => 'live_blogs#next_cursor'
   get 'live_blogs/:id/cursor' => 'live_blogs#cursor'
 

@@ -21,7 +21,7 @@
     @getLatest(30)
     if @state.live
       # @timer = setInterval @getLatest, 5000 # every 5 seconds
-      @timer = setInterval @getNext, 5000 # every 5 seconds
+      @timer = setInterval @getNext, 3000 # every 5 seconds
     setTimeout @resize, 1000
     setTimeout @resize, 5000
 
@@ -59,6 +59,7 @@
         @
 
   getNext: ->
+    return if @state.messages.length is 0
     cursor = @state.messages[0]?.cursor
     $.ajax
       method: "GET"
@@ -117,6 +118,14 @@
         @setState
           loading: false
 
+  updateUnprocessed: (message) ->
+    messages = @state.messages
+    replaceAt = _.findIndex messages, (old_message) ->
+      old_message.id is message.id
+    messages[replaceAt] = message
+    @setState
+      messages: messages
+
   render: ->
     messages = @state.messages.map (message, index) =>
       if index is 0
@@ -129,6 +138,7 @@
           if new Date(prevTimestamp) - new Date(message.timestamp) > 300000 # 5min
             hide = false
       `<Message data={message}
+        updateUnprocessed={_this.updateUnprocessed}
         key={message.id}
         hide={hide}
         resize={_this.resize}

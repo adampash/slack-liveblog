@@ -66,12 +66,25 @@ class LiveBlog < ActiveRecord::Base
   end
 
   def next_cursor_cache(cursor, count=5)
-    next_from_cursor(cursor, count)
+    in_cache = Rails.cache.read("cursor/#{id}/#{cursor}")
+    if in_cache
+      puts "CACHED MESSSAGES"
+      messages = in_cache
+    else
+      puts "NOT CACHED MESSSAGES"
+      messages = next_from_cursor(cursor, count)
+      Rails.cache.write(
+        "cursor/#{id}/#{cursor}",
+        messages,
+        expires_in: 30.seconds,
+      )
+    end
+    messages
   end
 
   def next_from_cursor(cursor, count=5)
     # this will have problems with async processed=true
-    messages.where('cursor > ?', cursor).order('cursor DESC').limit(count).where(processed: true)
+    messages.where('cursor > ?', cursor).order('cursor DESC').limit(count)
   end
 
   def from_cursor(cursor)
@@ -83,6 +96,7 @@ class LiveBlog < ActiveRecord::Base
     Rails.cache.delete("live_blog/#{id}")
     Rails.cache.delete("latest/#{id}/5")
     Rails.cache.delete("latest/#{id}/30")
+    Rails.cache.delete("cursor/#{id}/#{cursor}")
     purge
   end
 

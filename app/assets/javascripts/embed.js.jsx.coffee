@@ -23,6 +23,9 @@
 
   render: ->
     data = @props.data
+    description = data.description.split(" ")[0..30].join(" ")
+    if data.description.split(" ").length > 30
+      description += "..."
     if data.type is 'article' or data.type is 'blog'
       if data.image?
         img = `<div className="media"><img src={data.image} /></div>`
@@ -35,7 +38,7 @@
               <h4>{data.title}</h4>
             </a>
             <div className="description">
-              {data.description}
+              {description}
             </div>
           </div>
         </div>
