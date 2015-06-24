@@ -96,7 +96,6 @@ class LiveBlog < ActiveRecord::Base
     Rails.cache.delete("live_blog/#{id}")
     Rails.cache.delete("latest/#{id}/5")
     Rails.cache.delete("latest/#{id}/30")
-    Rails.cache.delete("cursor/#{id}/#{cursor}")
     purge
   end
 

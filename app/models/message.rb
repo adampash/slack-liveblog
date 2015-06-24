@@ -119,6 +119,7 @@ class Message < ActiveRecord::Base
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
     Rails.cache.delete("message/#{id}")
+    Rails.cache.delete("cursor/#{live_blog.id}/#{cursor}")
     purge
   end
 
@@ -126,6 +127,7 @@ class Message < ActiveRecord::Base
     Rails.cache.delete("latest/#{live_blog.id}/5")
     Rails.cache.delete("latest/#{live_blog.id}/30")
     Rails.cache.delete("message/#{id}")
+    Rails.cache.delete("cursor/#{live_blog.id}/#{cursor}")
     purge_all
     live_blog.purge
   end
