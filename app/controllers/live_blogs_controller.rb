@@ -1,5 +1,5 @@
 class LiveBlogsController < ApplicationController
-  before_filter :set_cache_control_headers, only: [:show, :latest, :cursor]
+  before_filter :set_cache_control_headers, only: [:show, :latest, :cursor, :next_cursor]
   after_action :allow_iframe
 
   def show
