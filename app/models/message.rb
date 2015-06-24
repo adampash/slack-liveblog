@@ -33,7 +33,7 @@ class Message < ActiveRecord::Base
         expires_in: 30.seconds,
       )
     end
-    live_blog
+    message
   end
 
   def self.create_from_params(options, live_blog_id)
