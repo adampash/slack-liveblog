@@ -115,6 +115,7 @@ class Message < ActiveRecord::Base
       end
       message.save
       message.live_blog.purge
+      message.purge
     end
   end
 
