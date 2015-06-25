@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.find_cache params[:id]
+    render json: @message
     set_surrogate_key_header [@message.record_key]
   end
 
