@@ -30,4 +30,16 @@ class Embed < ActiveRecord::Base
     }
   end
 
+  def self.create_from_attachment(message, data)
+    link = extract_link(data["pretext"])
+    create(
+      message_id: message.id,
+      description: data["text"],
+      og_type: 'article',
+      title: data["author_name"],
+      url: link,
+      image: data["author_icon"],
+    )
+  end
+
 end

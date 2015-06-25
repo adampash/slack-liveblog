@@ -34,6 +34,22 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_or_create_bot(bot_name, bot_id)
+    user = find_by(slack_id: bot_id)
+    if user.nil?
+      user = create(
+        slack_id: bot_id,
+        name: bot_name,
+      )
+      if bot_name == "TwitterBot"
+        twitter_avatar = "https://slack.global.ssl.fastly.net/7bf4/img/services/twitter_128.png"
+        user.get_avatar_from_url(twitter_avatar)
+      end
+      user.save
+    end
+    user
+  end
+
   def self.fetch_user(user_id)
     user = find(user_id)
     puts "need to fetch stuff for this user: #{user.name}"

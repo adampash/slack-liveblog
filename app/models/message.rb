@@ -94,11 +94,27 @@ class Message < ActiveRecord::Base
         user = User.find_or_create_by_slack_id(data["user"])
         message.user = user
         message.processed = true
+      elsif data["subtype"] == 'bot_message'
+        unless data["attachments"].nil?
+          if data["attachments"].length > 0
+            attachment = data["attachments"].first
+            if attachment["service_name"] == 'twitter'
+              message.text = attachment["pretext"]
+              user = User.find_or_create_bot('TwitterBot', data["bot_id"])
+              message.embed = Embed.create_from_attachment(
+                message,
+                attachment
+              )
+              message.processed = true
+              message.user = user
+            end
+          end
+        end
       else
         puts "something went wrong"
       end
-      message.live_blog.purge
       message.save
+      message.live_blog.purge
     end
   end
 
