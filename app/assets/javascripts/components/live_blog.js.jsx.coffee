@@ -126,6 +126,9 @@
     @setState
       messages: messages
 
+  showMoreButton: ->
+    @state.cursor? and @state.cursor != 0 and @state.cursor != 1
+
   render: ->
     messages = @state.messages.map (message, index) =>
       if index is 0
@@ -144,7 +147,7 @@
         resize={_this.resize}
       />`
 
-    if @state.cursor? and @state.cursor != 0
+    if @showMoreButton()
       if @state.loading
         more_button = `<div className="loading">
           <i className="fa fa-spinner fa-pulse" />
