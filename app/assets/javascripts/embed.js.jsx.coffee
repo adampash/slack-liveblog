@@ -5,7 +5,10 @@
   isYouTube: ->
     @props.data.url.match(/^https?:\/\/(www\.)?youtube.com/)?
   getYoutubeId: ->
-    @props.data.url.match(/v=(\w+)$/)[1]
+    regex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/
+    match = @props.data.url.match(regex)
+    if match?[7].length == 11
+      match[7]
 
   componentDidMount: ->
     # fluidvids.render() if @props.data.type is 'video'
@@ -48,24 +51,25 @@
       #   img = `<img src={data.image} />`
       if @isYouTube()
         videoId = @getYoutubeId()
-        unless @state.play
-          embed = `<div className="embed video">
-            <div className="vid_thumb" onClick={this.playVid}>
-              <img
-                src={data.image}
+        if videoId?
+          unless @state.play
+            embed = `<div className="embed video">
+              <div className="vid_thumb" onClick={this.playVid}>
+                <img
+                  src={data.image}
+                  width="100%"
+                  height="400px"
+                />
+              </div>
+            </div>`
+          else
+            embed = `<div className="embed video">
+              <iframe
+                src={"http://www.youtube.com/embed/" + videoId}
                 width="100%"
                 height="400px"
               />
-            </div>
-          </div>`
-        else
-          embed = `<div className="embed video">
-            <iframe
-              src={"http://www.youtube.com/embed/" + videoId}
-              width="100%"
-              height="400px"
-            />
-          </div>`
+            </div>`
       else
         `<div></div>`
     else
