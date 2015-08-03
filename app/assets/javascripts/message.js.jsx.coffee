@@ -43,63 +43,66 @@ ImageLoader = ReactImageLoader
     window.open(e.currentTarget.href)
 
   render: ->
-    timestamp = @formatTimestamp()
-    if @props.data.user.name is 'slackbot'
-      hideMessage = "hidden"
-    else
-      hideMessage = ""
-    if @props.data.attachment?.url?
-      payload = `<a href={this.props.data.attachment.original} _target="_blank" onClick={this.handleImageClick}>
-                  <figure>
-                    <ImageLoader
-                      src={this.props.data.attachment.url}
-                      onLoad={this.props.resize}
-                    />
-                    <figcaption>
-                      {this.props.data.attachment.name}
-                    </figcaption>
-                  </figure>
-                </a>`
-    else
-      text = @processText(@props.data.text)
-      payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
+    try
+      timestamp = @formatTimestamp()
+      if @props.data.user.name is 'slackbot'
+        hideMessage = "hidden"
+      else
+        hideMessage = ""
+      if @props.data.attachment?.url?
+        payload = `<a href={this.props.data.attachment.original} _target="_blank" onClick={this.handleImageClick}>
+                    <figure>
+                      <ImageLoader
+                        src={this.props.data.attachment.url}
+                        onLoad={this.props.resize}
+                      />
+                      <figcaption>
+                        {this.props.data.attachment.name}
+                      </figcaption>
+                    </figure>
+                  </a>`
+      else
+        text = @processText(@props.data.text)
+        payload = `<div dangerouslySetInnerHTML={{__html: text}} />`
 
-    if @props.data.embed?
-      embed = `<Embed data={this.props.data.embed}
-                  resize={this.props.resize}
-              />`
-      if @props.data.text.match(/^<.+>$/)
-        payload = ''
-    else
-      embed = ''
+      if @props.data.embed?
+        embed = `<Embed data={this.props.data.embed}
+                    resize={this.props.resize}
+                />`
+        if @props.data.text.match(/^<.+>$/)
+          payload = ''
+      else
+        embed = ''
 
-    if @props.hide
-      hideAble = "hide"
-    else
-      hideAble = ""
+      if @props.hide
+        hideAble = "hide"
+      else
+        hideAble = ""
 
-    `<div className={"message " + hideAble + " " + hideMessage}>
-        <div className="avatar">
-          <img src={this.props.data.user.avatar} />
-          <div className="alt timestamp">
-            {timestamp.split(" ")[0]}
-          </div>
-        </div>
-        <div className="content">
-          <div className="user_and_time">
-            <div className="username">
-              {this.props.data.user.name}
-            </div>
-            <div className="timestamp">
-              {timestamp}
+      `<div className={"message " + hideAble + " " + hideMessage}>
+          <div className="avatar">
+            <img src={this.props.data.user.avatar} />
+            <div className="alt timestamp">
+              {timestamp.split(" ")[0]}
             </div>
           </div>
-          <div className="text">
-            {payload}
+          <div className="content">
+            <div className="user_and_time">
+              <div className="username">
+                {this.props.data.user.name}
+              </div>
+              <div className="timestamp">
+                {timestamp}
+              </div>
+            </div>
+            <div className="text">
+              {payload}
+            </div>
+            {embed}
           </div>
-          {embed}
-        </div>
-      </div>`
+        </div>`
+    catch
+      `<div />`
 
   processText: (text="") ->
     text = Unfurl.all(text)
