@@ -9,6 +9,9 @@ class Embed < ActiveRecord::Base
     agent = Mechanize.new
     agent.user_agent_alias = 'Mac Safari'
     html = agent.get(link[:url]).content
+    if html.is_a? StringIO
+      html = html.read()
+    end
     og = OpenGraph.new(html)
     create(
       message_id: message.id,
