@@ -18,7 +18,7 @@ ImageLoader = ReactImageLoader
   fetchUnprocessed: ->
     if @state.fetchTries < 10 and !@props.data.processed
       $.ajax
-        url: "/messages/#{@props.data.id}"
+        url: "/messages/#{@props.data.id}.json"
         method: "GET"
         dataType: 'json'
         success: (message) =>

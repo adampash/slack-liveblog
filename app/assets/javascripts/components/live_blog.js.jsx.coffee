@@ -31,7 +31,7 @@
   getLatest: (count=5) ->
     $.ajax
       method: "GET"
-      url: "/latest/#{@props.live_blog.id}"
+      url: "/latest/#{@props.live_blog.id}.json"
       dataType: "json"
       data:
         count: count
@@ -63,7 +63,7 @@
     cursor = @state.messages[0]?.cursor
     $.ajax
       method: "GET"
-      url: "/next/#{@props.live_blog.id}/cursor/#{cursor}"
+      url: "/next/#{@props.live_blog.id}/cursor/#{cursor}.json"
       dataType: "json"
       success: (response) =>
         old_messages = @state.messages
@@ -97,7 +97,7 @@
     $.ajax
       method: "GET"
       dataType: 'json'
-      url: "/live_blogs/#{@props.live_blog.id}/cursor"
+      url: "/live_blogs/#{@props.live_blog.id}/cursor.json"
       data: cursor: @state.cursor
       success: (response) =>
         old_messages = @state.messages
