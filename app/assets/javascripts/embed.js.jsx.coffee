@@ -29,7 +29,7 @@
     description = data.description.split(" ")[0..30].join(" ")
     if data.description.split(" ").length > 30
       description += "..."
-    if data.type is 'article' or data.type is 'blog'
+    if data.type?.toLowerCase() is 'article' or data.type?.toLowerCase() is 'blog'
       if data.image?
         img = `<div className="media"><img src={data.image} /></div>`
       embed = `<div className="embed article" ref="embed">
