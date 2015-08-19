@@ -157,7 +157,7 @@
             onClick={this.fetchMore}
             className="load_more"
           >
-            Load more
+            Load More
           </button>`
     else
       more_button = `<div></div>`

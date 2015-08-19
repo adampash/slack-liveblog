@@ -10,7 +10,7 @@
 .liveblog {
   max-width: 636px;
   border-bottom: 1px solid $rule_color;
-  padding-bottom: 25px;
+  padding-bottom: 49px;
   .header {
     @include flexbox;
     @include flex-direction(column);

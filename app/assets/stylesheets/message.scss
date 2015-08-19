@@ -133,19 +133,18 @@ body {
     margin-top: 0px;
   }
   button.load_more {
+    height: 50px;
     font-family: ProximaNovaCond;
     padding: 12px 0 10px;
-    letter-spacing: 1px;
-    background: #6b6b6b;
-    color: white;
-    font-size: 22px;
-    text-transform: uppercase;
+    color: #333333;
+    font-size: 16px;
     outline: none;
     border: none;
     cursor: pointer;
     margin-top: 20px;
+    background: #F2F2F2;
     &:hover {
-      background: #787878;
+      background: #E6E6E6;
     }
   }
   .loading {
