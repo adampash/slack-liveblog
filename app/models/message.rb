@@ -12,7 +12,7 @@ class Message < ActiveRecord::Base
   has_one :embed
 
   has_attached_file :attachment,
-    :styles => { :large => "800x800>", :thumb => "100x100>" },
+    :styles => { :large => "800x800>" },
     :storage => :s3,
     :path => 'liveblog/messages/files/:id/:style/:filename',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }

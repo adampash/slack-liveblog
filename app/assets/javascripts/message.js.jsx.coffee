@@ -16,7 +16,7 @@ ImageLoader = ReactImageLoader
       setTimeout @fetchUnprocessed, 2000
 
   fetchUnprocessed: ->
-    if @state.fetchTries < 10 and !@props.data.processed
+    if @state.fetchTries < 20 and !@props.data.processed
       $.ajax
         url: "/messages/#{@props.data.id}.json"
         method: "GET"
