@@ -8,7 +8,7 @@ end
 json.timestamp message.timestamp
 if message.attachment?
   json.attachment do
-    json.url message.attachment.url(:large)
+    # json.url message.attachment.url(:large)
     json.original message.attachment.url(:original)
     json.name message.attachment_file_name
   end
