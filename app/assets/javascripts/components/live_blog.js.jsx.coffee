@@ -7,7 +7,7 @@
   timer: null
 
   resize: ->
-    height = $('.liveblog').height() + 30
+    height = $('.liveblog').height() + 100
     window.top.postMessage(
       JSON.stringify(
         kinja:
