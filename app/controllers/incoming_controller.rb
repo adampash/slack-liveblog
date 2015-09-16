@@ -42,7 +42,7 @@ class IncomingController < ApplicationController
           render nothing: true
         end
       end
-    when ENV["SLACK_OUTGOING_TOKEN"], ENV["SLACK_OUTGOING_TOKEN_2"]
+    when ENV["SLACK_OUTGOING_TOKEN"], ENV["SLACK_OUTGOING_TOKEN_2"], ENV["SLACK_OUTGOING_TOKEN_3"]
       #TODO handle this way better
       bad_start = "set the channel topic"
       unless params[:text].nil?
