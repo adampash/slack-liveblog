@@ -83,7 +83,7 @@ ImageLoader = ReactImageLoader
           <div className="avatar">
             <img src={this.props.data.user.avatar} />
             <div className="alt timestamp">
-              {timestamp?.split(" ")[0]}
+              {timestamp.split(" ")[0]}
             </div>
           </div>
           <div className="content">
