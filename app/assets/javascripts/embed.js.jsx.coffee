@@ -26,6 +26,7 @@
 
   render: ->
     data = @props.data
+    return `<div />` unless data.description?
     description = data.description.split(" ")[0..30].join(" ")
     if data.description.split(" ").length > 30
       description += "..."
