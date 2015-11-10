@@ -131,6 +131,14 @@ class Message < ActiveRecord::Base
     }
   end
 
+  def attachment_url
+    cdn_link attachment.url(:original)
+  end
+
+  def cdn_link(uri)
+    uri.gsub('s3.amazonaws.com/', '')
+  end
+
   protected
   def purge_cache
     Rails.cache.delete("latest/#{live_blog.id}/5")
