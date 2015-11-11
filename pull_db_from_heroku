@@ -1,0 +1,11 @@
+#! /bin/bash
+
+echo "Dropping database with rake db:drop"
+rake db:drop
+
+db_name=$(basename $PWD)_development
+echo "Pulling database from heroku into $db_name"
+heroku pg:pull DATABASE_URL $db_name
+
+echo "Running migrations"
+rake db:migrate
