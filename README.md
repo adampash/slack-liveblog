@@ -13,6 +13,7 @@ This set up assumes a few things:
 1. You're deploying to Heroku
 1. You are an admin on a Slack Team
 1. You are using Fastly.
+1. You are using an S3 bucket for assets.
 
 The Fastly requirement is hard-coded at the moment. I'd be happy to take a pull request that makes it optional, but for a reasonably trafficked liveblog, Fastly is pretty important. You'll also need to set up your DNS to use a DNS to CDN to Origin configuration with Fastly. [This blog post](https://robots.thoughtbot.com/dns-cdn-origin) explains the basics very well.
 
