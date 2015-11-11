@@ -21,7 +21,7 @@
     @getLatest(30)
     if @state.live
       # @timer = setInterval @getLatest, 5000 # every 5 seconds
-      @timer = setInterval @getNext, 4000 # every 5 seconds
+      @timer = setInterval @getNext, 4000 # every 4 seconds
     setTimeout @resize, 1000
     setTimeout @resize, 5000
 
