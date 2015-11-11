@@ -85,4 +85,11 @@ heroku config:add SLACK_START_TOKEN=[key] # This token will be available when yo
 
 heroku config:add SLACK_END_TOKEN=[key] # This token will be available when you set up your /end_liveblog slash command
 heroku config:add SLACK_OUTGOING_TOKEN=[key] # This token will be available when you set up your Outgoing webhooks integration
+
+# Scale dynos
+heroku ps:scale web=2:1x # I normally scale this up during a liveblog, but this will vary by your needs
+heroku ps:scale worker=1:1x # I normally scale this up during a liveblog, but this will vary by your needs
+
+# Run migrations
+heroku run rake db:migrate
 ```
