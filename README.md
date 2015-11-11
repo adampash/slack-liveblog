@@ -2,7 +2,7 @@
 
 Once set up, this tool creates a liveblog that can be embedded via iframe byentering your designated Slack channel and typing `/start_liveblog <Name of your liveblog>`.
 
-(!http://files.adampash.com/s/Slack_1BF3A67D.png)
+![image of liveblog start](http://files.adampash.com/s/Slack_1BF3A67D.png)
 
 When you're done, type `/end_liveblog`. Pretty simple.
 
