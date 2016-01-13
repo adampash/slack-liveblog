@@ -87,7 +87,8 @@ class Message < ActiveRecord::Base
       data = response["messages"][0]
       message.text = data["text"]
       if data["subtype"] == "file_share"
-        url = data["file"]["url_download"]
+        # url = data["file"]["url_download"]
+        url = data["file"]["thumb_720"]
         message.attachment = get_file_from_url(url)
         message.attachment.instance_write :file_name, data["file"]["title"]
 
