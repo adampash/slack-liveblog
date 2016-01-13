@@ -17,7 +17,7 @@
       resize = @props.resize
       tweetId = @props.data.url.match(tweetRegEx)[1]
       twttr.ready =>
-        twttr.widgets.createTweet(tweetId, React.findDOMNode(@refs.tweet))
+        twttr.widgets.createTweet(tweetId, @refs.tweet)
           .then (el) ->
             resize()
   playVid: ->
