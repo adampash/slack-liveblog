@@ -17,7 +17,7 @@
       resize = @props.resize
       tweetId = @props.data.url.match(tweetRegEx)[1]
       twttr.ready =>
-        twttr.widgets.createTweet(tweetId, @refs.tweet)
+        twttr.widgets.createTweet(tweetId, React.findDOMNode(@refs.tweet))
           .then (el) ->
             resize()
   playVid: ->
@@ -26,14 +26,15 @@
 
   render: ->
     data = @props.data
-    return `<div />` unless data.description?
-    description = data.description.split(" ")[0..30].join(" ")
-    if data.description.split(" ").length > 30
-      description += "..."
+    if data.description?
+    # return `<div />` unless data.description?
+      description = data.description.split(" ")[0..30].join(" ")
+      if data.description.split(" ").length > 30
+        description += "..."
     if data.type?.toLowerCase() is 'article' or data.type?.toLowerCase() is 'blog'
       if data.image?
         img = `<div className="media"><img src={data.image} /></div>`
-      embed = `<div className="embed article" ref="embed">
+      embed = `<div className="embed article">
         <div ref="tweet" className="tweet" />
         <div className="native">
           {img}
@@ -65,6 +66,7 @@
             </div>`
           else
             embed = `<div className="embed video">
+              <div ref="tweet" className="tweet" />
               <iframe
                 src={"http://www.youtube.com/embed/" + videoId}
                 width="100%"
@@ -74,4 +76,4 @@
       else
         `<div></div>`
     else
-      `<div></div>`
+      `<div ref="tweet" className="tweet" />`
