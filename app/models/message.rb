@@ -91,11 +91,12 @@ class Message < ActiveRecord::Base
         if data["file"]["mimetype"] == "image/gif"
           url = data["file"]["url_private"]
         else
-          if data["file"]["thumb_720"]
-            url = data["file"]["thumb_720"]
-          else
-            url = data["file"]["thumb_360"]
-          end
+          url = data["file"]["url_private"]
+          # if data["file"]["thumb_720"]
+          #   url = data["file"]["thumb_720"]
+          # else
+          #   url = data["file"]["thumb_360"]
+          # end
         end
         message.attachment = get_file_from_url(url)
         message.attachment.instance_write :file_name, data["file"]["title"]
@@ -129,7 +130,9 @@ class Message < ActiveRecord::Base
   end
 
   def self.get_file_from_url(url)
-    open(url)
+    open(url,
+      "Authorization" => "Bearer #{ENV['SLACK_API_TOKEN']}"
+    )
   end
 
   def s3_credentials
