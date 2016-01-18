@@ -91,12 +91,12 @@ class Message < ActiveRecord::Base
         if data["file"]["mimetype"] == "image/gif"
           url = data["file"]["url_private"]
         else
-          url = data["file"]["url_private"]
-          # if data["file"]["thumb_720"]
-          #   url = data["file"]["thumb_720"]
-          # else
-          #   url = data["file"]["thumb_360"]
-          # end
+          if data["file"]["thumb_720"]
+            url = data["file"]["thumb_720"]
+          else
+            url = data["file"]["url_private"]
+            # url = data["file"]["thumb_360"]
+          end
         end
         message.attachment = get_file_from_url(url)
         message.attachment.instance_write :file_name, data["file"]["title"]
