@@ -11,7 +11,11 @@ class Embed < ActiveRecord::Base
     begin
       html = agent.get(link[:url]).content
       unless html.is_a? StringIO
-        og = OpenGraph.new(html)
+        begin
+          og = OpenGraph.new(html)
+        rescue
+          og = OpenGraph.new(link[:url])
+        end
         type = og.type.nil? ? '' : og.type.downcase
         create(
           message_id: message.id,
