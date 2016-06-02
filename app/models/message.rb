@@ -14,6 +14,7 @@ class Message < ActiveRecord::Base
   has_attached_file :attachment,
     # :styles => { :large => "800x800>" },
     :storage => :s3,
+    :s3_protocol => "https",
     :path => 'liveblog/messages/files/:id/:style/:filename',
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 

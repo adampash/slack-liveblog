@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
     :styles => { :large => "192x192>", :thumb => "100x100>" },
     :default_url => "/assets/images/:style/missing.png",
     :storage => :s3,
+    :s3_protocol => "https",
     :path => "liveblog/#{Rails.env.development? ? 'testing/' : ''}users/avatar/:id/:style/:id",
     :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
