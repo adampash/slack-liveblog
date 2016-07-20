@@ -39,8 +39,9 @@ class Message < ActiveRecord::Base
 
   def self.create_from_params(options, live_blog_id)
     message = create_message(options, live_blog_id)
-    if message.text.nil?
+    if message.text.nil? || message.text.include?("uploaded a file: ")
       puts "need to fetch file"
+      message.text = ""
       delay.create_file(message.id, options[:timestamp])
     elsif has_link(message.text)
       puts "need to fetch embed"
